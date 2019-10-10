@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_card_tab_imageWidth">180dp</dimen>
+    <dimen name="main_card_tab_imageHeight">220dp</dimen>
+    <dimen name="main_card_height">550dp</dimen>
+
+    <dimen name="textSize_10">10dp</dimen>
+    <dimen name="textSize_12">12dp</dimen>
+    <dimen name="textSize_14">14dp</dimen>
+    <dimen name="textSize_16">16dp</dimen>
+    <dimen name="textSize_18">18dp</dimen>
+    <dimen name="textSize_20">20dp</dimen>
+</resources>

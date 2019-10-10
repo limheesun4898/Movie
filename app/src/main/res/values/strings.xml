@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie-MOA</string>
+    <string name="main_toolbar_title">MOVIE-MOA</string>
+
+    <string name="main_tab1">예매</string>
+    <string name="main_tab2">상영 예정</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
