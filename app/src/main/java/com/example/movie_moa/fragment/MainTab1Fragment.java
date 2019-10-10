@@ -1,23 +1,25 @@
 package com.example.movie_moa.fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.MainRecyclerAdapter;
 import com.example.movie_moa.data.MainItem;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainTab1Fragment extends Fragment {
-    ArrayList<MainItem> Tab1List = new ArrayList<>();
+    ArrayList<MainItem> tab1list = new ArrayList<>();
     RecyclerView recyclerView;
 
     public MainTab1Fragment() {
@@ -54,9 +56,6 @@ public class MainTab1Fragment extends Fragment {
                 = new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false);
 
         recyclerView.setLayoutManager(horizonalLayoutManager);
-
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
-//        recyclerView.setLayoutManager(gridLayoutManager);
 
         return view;
     }
@@ -84,20 +83,32 @@ public class MainTab1Fragment extends Fragment {
                 //예매순 데이터
                 Document doc1 = Jsoup.connect("https://movie.daum.net/premovie/released").get();
                 Elements mElementDataSize1 = doc1.select("ul[class=list_movie #movie]").select("li");
+                int count = 1;
 
                 for (Element element : mElementDataSize1) {
+
+                    int number = count++;
+
                     String title = element.select("li div[class=info_tit] a").text();
+
+                    String preview = element.select("li div[class=info_tit] em").text();
+
                     String description = element.select("span.info_state").text();
+                    int index1 = description.indexOf("・");
+                    String openingDay = description.substring(0,index1);
+                    String bookingRate = description.substring(index1 + 1);
 
                     String poster_url = element.select("img").attr("src");
-                    int index = poster_url.indexOf("=");
-                    String result = poster_url.substring(index+1);
+                    int index2 = poster_url.indexOf("=");
+                    String result = poster_url.substring(index2 + 1);
 
                     String detail_url = element.select("a").attr("href");
                     detail_url = "https://movie.daum.net" + detail_url;
 
-                    Tab1List.add(new MainItem(title, description, result, detail_url));
-                }
+                    tab1list.add(new MainItem(number,title,preview ,bookingRate,openingDay, result, detail_url));
+//                    Log.d("debug", "number : "+number+" title : "+title+" preview : "+preview+" bookingRate : "+bookingRate+
+//                            " openingDay : "+openingDay+ " poster_url : " +result+" detail_url : "+detail_url);
+  }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -111,7 +122,7 @@ public class MainTab1Fragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            MainRecyclerAdapter adapter = new MainRecyclerAdapter(getActivity(), Tab1List);
+            MainRecyclerAdapter adapter = new MainRecyclerAdapter(getActivity(), tab1list, 1);
             recyclerView.setAdapter(adapter);
 
             progressDialog.dismiss();
