@@ -19,16 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/btn_back"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:padding="12dp"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:background="@color/white"/>
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="영화"
                 android:textSize="@dimen/textSize_20" />
@@ -59,12 +61,9 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/more_viewpager"
+    <FrameLayout
+        android:id="@+id/more_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
-
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

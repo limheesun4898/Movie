@@ -1,9 +1,11 @@
 package com.example.movie_moa.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.activity.MoreActivity;
 import com.example.movie_moa.adapter.MainRecyclerAdapter;
 import com.example.movie_moa.data.MainItem;
 
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 public class MainTab1Fragment extends Fragment {
     ArrayList<MainItem> tab1list = new ArrayList<>();
     RecyclerView recyclerView;
+
 
     public MainTab1Fragment() {
         // Required empty public constructor
@@ -95,7 +99,7 @@ public class MainTab1Fragment extends Fragment {
 
                     String description = element.select("span.info_state").text();
                     int index1 = description.indexOf("・");
-                    String openingDay = description.substring(0,index1);
+                    String openingDay = description.substring(0, index1);
                     String bookingRate = description.substring(index1 + 1);
 
                     String poster_url = element.select("img").attr("src");
@@ -105,10 +109,8 @@ public class MainTab1Fragment extends Fragment {
                     String detail_url = element.select("a").attr("href");
                     detail_url = "https://movie.daum.net" + detail_url;
 
-                    tab1list.add(new MainItem(number,title,preview ,bookingRate,openingDay, result, detail_url));
-//                    Log.d("debug", "number : "+number+" title : "+title+" preview : "+preview+" bookingRate : "+bookingRate+
-//                            " openingDay : "+openingDay+ " poster_url : " +result+" detail_url : "+detail_url);
-  }
+                    tab1list.add(new MainItem(number, title, preview, bookingRate, openingDay, result, detail_url));
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();

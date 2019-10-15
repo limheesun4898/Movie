@@ -1,6 +1,9 @@
 package com.example.movie_moa.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -18,7 +21,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private MainTab2Fragment mainTab2Fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    String fragmentTag = "Tab1";
+
+    private static final String fragmentTag1 = "Tab1";
+    private static final String fragmentTag2 = "Tab2";
+
+    private int page_number = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_fragment_container, mainTab1Fragment, fragmentTag).commitAllowingStateLoss();
+        transaction.replace(R.id.main_fragment_container, mainTab1Fragment, fragmentTag1).commitAllowingStateLoss();
 
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setOnTabSelectedListener(this);
@@ -67,29 +74,42 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 //        show / hide 통해서 fragment replace 할때 oncreate 다시 작동하는 것을 막음.
         switch (position) {
             case 0:
-                if (fragmentManager.findFragmentByTag("Tab1") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("Tab1")).commit();
+                if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag(fragmentTag1)).commit();
                 } else
-                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, mainTab1Fragment, "Tab1").commit();
+                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, mainTab1Fragment, fragmentTag1).commit();
 
-                if (fragmentManager.findFragmentByTag("Tab2") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Tab2")).commit();
+                if (fragmentManager.findFragmentByTag(fragmentTag2) != null) {
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag2)).commit();
                 }
+                page_number = 0;
                 break;
 
             case 1:
 
-                if (fragmentManager.findFragmentByTag("Tab2") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("Tab2")).commit();
+                if (fragmentManager.findFragmentByTag(fragmentTag2) != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag(fragmentTag2)).commit();
                 } else
-                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, mainTab2Fragment, "Tab2").commit();
+                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, mainTab2Fragment, fragmentTag2).commit();
 
-                if (fragmentManager.findFragmentByTag("Tab1") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Tab1")).commit();
+                if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag1)).commit();
                 }
+                page_number = 1;
                 break;
         }
     }
 
+
+    public void btn_moreActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, MoreActivity.class);
+        if(page_number == 0){
+            intent.putExtra("tab",fragmentTag1);
+        }else if(page_number == 1){
+            intent.putExtra("tab",fragmentTag2);
+        }
+        startActivity(intent);
+
+    }
 
 }

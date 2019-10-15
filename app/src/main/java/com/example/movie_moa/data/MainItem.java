@@ -1,7 +1,12 @@
 package com.example.movie_moa.data;
 
 
-public class MainItem {
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+
+public class MainItem implements Parcelable {
     int number;
     String title;
     String preview; // 관람이용가
@@ -20,6 +25,28 @@ public class MainItem {
         this.detail_url = detail_url;
     }
 
+
+    protected MainItem(Parcel in) {
+        number = in.readInt();
+        title = in.readString();
+        preview = in.readString();
+        bookingRate = in.readString();
+        openingDay = in.readString();
+        poster_url = in.readString();
+        detail_url = in.readString();
+    }
+
+    public static final Creator<MainItem> CREATOR = new Creator<MainItem>() {
+        @Override
+        public MainItem createFromParcel(Parcel in) {
+            return new MainItem(in);
+        }
+
+        @Override
+        public MainItem[] newArray(int size) {
+            return new MainItem[size];
+        }
+    };
 
     public int getNumber() {
         return number;
@@ -49,4 +76,19 @@ public class MainItem {
         return detail_url;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(number);
+        dest.writeString(title);
+        dest.writeString(preview);
+        dest.writeString(bookingRate);
+        dest.writeString(openingDay);
+        dest.writeString(poster_url);
+        dest.writeString(detail_url);
+    }
 }
