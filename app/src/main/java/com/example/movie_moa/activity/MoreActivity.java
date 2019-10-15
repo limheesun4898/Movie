@@ -14,12 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.data.MainItem;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MainTab2Fragment;
 import com.example.movie_moa.fragment.MoreTab1Fragment;
 import com.example.movie_moa.fragment.MoreTab2Fragment;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, View.OnClickListener {
     private TabLayout moreTablayout;
@@ -38,6 +41,14 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_more);
 
         init();
+
+        ArrayList<MainItem> moviesList = new ArrayList<>();
+        Intent intent = getIntent();
+        moviesList = intent.getParcelableArrayListExtra("movies");
+        for (MainItem item: moviesList) {
+            Log.d("MoreActivity", "onCreate: " + item.getTitle());
+        }
+
 
 //        Bundle bundle = new Bundle();
 //        bundle.getInt("test",16);

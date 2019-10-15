@@ -131,5 +131,9 @@ public class MainTab1Fragment extends Fragment {
         }
     }
 
+    public ArrayList<MainItem> getMovieList() {
+        return tab1list;
+    }
+
 
 }
