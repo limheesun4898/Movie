@@ -1,87 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_margin="5dp">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:id="@+id/img_poster"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_add_black_24dp"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="7dp"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text = "1.나쁜녀석들"
+        android:textColor="@color/text_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/textSize_16"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/img_poster"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="01. 나쁜 녀석들 : 더 무비"
-            android:textSize="@dimen/textSize_16"
-            android:textStyle="bold"
-            android:textColor="@color/text_black"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tv_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintLeft_toRightOf="@id/img_poster"
+        tools:text="15세 이상 관람"
+        android:textSize="@dimen/textSize_14"
+        android:textColor="@color/text_black"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
 
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="15세 관람이상"
-            android:layout_marginTop="7dp"
-            android:textSize="@dimen/textSize_14"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text1"/>
+    <TextView
+        android:id="@+id/tv_bookingRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="예매율 : "
+        android:textSize="@dimen/textSize_12"
+        android:textColor="@color/text_black"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@id/img_poster"
+        app:layout_constraintTop_toBottomOf="@id/tv_preview"/>
 
-        <TextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="평점 "
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text2"
-            android:layout_marginTop="10dp" />
+    <TextView
+        android:id="@+id/tv_openingDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/img_poster"
+        app:layout_constraintTop_toBottomOf="@id/tv_bookingRate"
+        tools:text="개봉일 : "
+        android:textSize="@dimen/textSize_12"
+        android:textColor="@color/text_black"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
 
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintLeft_toRightOf="@id/text3"
-            app:layout_constraintTop_toBottomOf="@id/text2"
-            style="?android:attr/ratingBarStyleSmall" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="바로 예매"
+        android:background="@null"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_bookingRate" />
 
-        <TextView
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="예매율 : "
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text3"
-            android:layout_marginTop="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="개봉일 : "
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text4"
-            android:layout_marginTop="5dp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="예매 시간표"
-            android:background="@color/white"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text3"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

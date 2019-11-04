@@ -2,6 +2,7 @@ package com.example.movie_moa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -10,9 +11,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.data.MainItem;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MainTab2Fragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
@@ -46,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setOnTabSelectedListener(this);
-        tabLayout.addTab(tabLayout.newTab().setText(" "));
-        tabLayout.addTab(tabLayout.newTab().setText(" "));
     }
 
     //tablayout ontabselectedlistener
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         transaction = getSupportFragmentManager().beginTransaction();
 
-//        show / hide 통해서 fragment replace 할때 oncreate 다시 작동하는 것을 막음.
+//      show / hide 통해서 fragment replace 할때 oncreate 다시 작동하는 것을 막음.
         switch (position) {
             case 0:
                 if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
@@ -103,14 +105,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     public void btn_moreActivity(View view) {
         Intent intent = new Intent(MainActivity.this, MoreActivity.class);
-        if(page_number == 0){
-            intent.putExtra("tab",fragmentTag1);
-            intent.putExtra("movies", mainTab1Fragment.getMovieList());
-        }else if(page_number == 1){
-            intent.putExtra("tab",fragmentTag2);
+        if (page_number == 0) {
+            intent.putExtra("tab", fragmentTag1);
+            intent.putParcelableArrayListExtra("movies1", mainTab1Fragment.getMovieList());
+        } else if (page_number == 1) {
+            intent.putExtra("tab", fragmentTag2);
+            intent.putParcelableArrayListExtra("movies2", mainTab2Fragment.getMovieList());
         }
-        startActivity(intent);
 
+        startActivity(intent);
     }
 
 }

@@ -46,7 +46,6 @@ public class MainTab1Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         new showMovie().execute();
-
     }
 
     @Override

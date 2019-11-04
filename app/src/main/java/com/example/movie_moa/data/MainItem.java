@@ -1,7 +1,5 @@
 package com.example.movie_moa.data;
 
-
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -91,4 +89,5 @@ public class MainItem implements Parcelable {
         dest.writeString(poster_url);
         dest.writeString(detail_url);
     }
+
 }

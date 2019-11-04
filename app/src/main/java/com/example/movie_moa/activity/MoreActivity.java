@@ -5,8 +5,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +33,12 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private MoreTab1Fragment moreTab1Fragment;
     private MoreTab2Fragment moreTab2Fragment;
 
+    ArrayList<MainItem> moreList1 = new ArrayList<>();
+    ArrayList<MainItem> moreList2 = new ArrayList<>();
+
     private static final String fragmentTag1 = "Tab1";
     private static final String fragmentTag2 = "Tab2";
+
     Intent intent;
 
     @Override
@@ -41,19 +47,6 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_more);
 
         init();
-
-        ArrayList<MainItem> moviesList = new ArrayList<>();
-        Intent intent = getIntent();
-        moviesList = intent.getParcelableArrayListExtra("movies");
-        for (MainItem item: moviesList) {
-            Log.d("MoreActivity", "onCreate: " + item.getTitle());
-        }
-
-
-//        Bundle bundle = new Bundle();
-//        bundle.getInt("test",16);
-//        moreTab1Fragment.setArguments(bundle);
-
     }
 
     public void init() {
@@ -73,13 +66,27 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
         intent = getIntent();
         String tab = intent.getExtras().getString("tab");
 
+        moreList1 = intent.getParcelableArrayListExtra("movies1");
+        moreList2 = intent.getParcelableArrayListExtra("movies2");
+
         if (tab.equals(fragmentTag1)) {
-            transaction.replace(R.id.more_fragment_container, moreTab1Fragment, fragmentTag1).commitAllowingStateLoss();
+            transaction.replace(R.id.more_fragment_container, MoreTab1Fragment.newInstance(moreList1), fragmentTag1).commitAllowingStateLoss();
+
         } else if (tab.equals(fragmentTag2)) {
             int index = 1;
             TabLayout.Tab tab1 = moreTablayout.getTabAt(index);
             tab1.select();
-            transaction.replace(R.id.more_fragment_container, moreTab2Fragment, fragmentTag2).commit();
+            transaction.replace(R.id.more_fragment_container, MoreTab2Fragment.newInstance(moreList2), fragmentTag2).commit();
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_back:
+                onBackPressed();
+                break;
         }
     }
 
@@ -127,15 +134,6 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag1)).commit();
                 }
-                break;
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_back:
-                onBackPressed();
                 break;
         }
     }
