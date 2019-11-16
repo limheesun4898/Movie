@@ -54,11 +54,10 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.layout_day:
                 // setDate();
-                DialogFragment newFragment = new DatePickDialogFragment();
+                DialogFragment newFragment = new DatePickDialogFragment(mDataPickListener);
                 newFragment.show(getSupportFragmentManager(), "timePicker");
 
-                DatePickDialogFragment fragment = new DatePickDialogFragment();
-                fragment.setSelectedDataListener(mDataPickFragment);
+                DatePickDialogFragment fragment = new DatePickDialogFragment(mDataPickListener);
                 selectDate = fragment.setSelectDate();
                 textDate = fragment.setTextDate();
 
@@ -67,7 +66,7 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private DatePickDialogFragment.setListener mDataPickFragment = new DatePickDialogFragment.setListener() {
+    private DatePickDialogFragment.setListener mDataPickListener = new DatePickDialogFragment.setListener() {
         @Override
         public void setSelectedDateListenser(String selectedDate) {
             Log.d("MovieTicketingActivity", "setSelectedDateListenser: " + selectedDate);

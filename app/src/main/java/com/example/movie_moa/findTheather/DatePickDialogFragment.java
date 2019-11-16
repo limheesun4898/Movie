@@ -42,7 +42,7 @@ public class DatePickDialogFragment extends DialogFragment implements DatePicker
         void setSelectedDateListenser(String selectedDate);
     }
 
-    public void setSelectedDataListener(setListener listener) {
+    public DatePickDialogFragment(setListener listener) {
         this.listener = listener;
     }
 
