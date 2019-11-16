@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/main_recyclerview_item">
+        tools:listitem="@layout/item_main_recyclerview">
 
     </androidx.recyclerview.widget.RecyclerView>
 

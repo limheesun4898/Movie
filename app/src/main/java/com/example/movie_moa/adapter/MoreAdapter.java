@@ -2,7 +2,6 @@ package com.example.movie_moa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,7 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.more_recyclerview_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_more_recyclerview, parent, false);
         MoreAdapter.ViewHolder viewHolder = new MoreAdapter.ViewHolder(view);
         return viewHolder;
 

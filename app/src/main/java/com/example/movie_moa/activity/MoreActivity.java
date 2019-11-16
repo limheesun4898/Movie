@@ -1,6 +1,7 @@
 package com.example.movie_moa.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
@@ -40,6 +41,7 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private static final String fragmentTag2 = "Tab2";
 
     Intent intent;
+    String tabPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +66,22 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
         moreTablayout.setOnTabSelectedListener(this);
 
         intent = getIntent();
-        String tab = intent.getExtras().getString("tab");
+        tabPosition = intent.getExtras().getString("tab");
 
         moreList1 = intent.getParcelableArrayListExtra("movies1");
         moreList2 = intent.getParcelableArrayListExtra("movies2");
 
-        if (tab.equals(fragmentTag1)) {
+        if (tabPosition.equals(fragmentTag1)) {
+
             transaction.replace(R.id.more_fragment_container, MoreTab1Fragment.newInstance(moreList1), fragmentTag1).commitAllowingStateLoss();
 
-        } else if (tab.equals(fragmentTag2)) {
+
+        } else if (tabPosition.equals(fragmentTag2)) {
             int index = 1;
             TabLayout.Tab tab1 = moreTablayout.getTabAt(index);
             tab1.select();
-            transaction.replace(R.id.more_fragment_container, MoreTab2Fragment.newInstance(moreList2), fragmentTag2).commit();
+
+//            transaction.replace(R.id.more_fragment_container, MoreTab2Fragment.newInstance(moreList2), fragmentTag2).commitAllowingStateLoss();
         }
 
     }
@@ -87,6 +92,17 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
             case R.id.btn_back:
                 onBackPressed();
                 break;
+        }
+    }
+
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0: // Fragment # 0 - This will show FirstFragment
+                return MoreTab1Fragment.newInstance(moreList1);
+            case 1: // Fragment # 0 - This will show FirstFragment different title
+                return MoreTab2Fragment.newInstance(moreList2);
+            default:
+                return null;
         }
     }
 
@@ -125,11 +141,10 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 break;
 
             case 1:
-
                 if (fragmentManager.findFragmentByTag(fragmentTag2) != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag(fragmentTag2)).commit();
                 } else
-                    fragmentManager.beginTransaction().add(R.id.more_fragment_container, moreTab2Fragment, fragmentTag2).commit();
+                    fragmentManager.beginTransaction().add(R.id.more_fragment_container, moreTab1Fragment, fragmentTag2).commit();
 
                 if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag1)).commit();
