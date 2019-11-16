@@ -17,8 +17,9 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.logging.Logger;
 
-public class MovieTicketingActivity extends AppCompatActivity implements View.OnClickListener, DatePickDialogFragment.setListener {
+public class MovieTicketingActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_theater;
 
     String selectDate, textDate;
@@ -57,6 +58,7 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 newFragment.show(getSupportFragmentManager(), "timePicker");
 
                 DatePickDialogFragment fragment = new DatePickDialogFragment();
+                fragment.setSelectedDataListener(mDataPickFragment);
                 selectDate = fragment.setSelectDate();
                 textDate = fragment.setTextDate();
 
@@ -64,6 +66,13 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 break;
         }
     }
+
+    private DatePickDialogFragment.setListener mDataPickFragment = new DatePickDialogFragment.setListener() {
+        @Override
+        public void setSelectedDateListenser(String selectedDate) {
+            Log.d("MovieTicketingActivity", "setSelectedDateListenser: " + selectedDate);
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -89,8 +98,5 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         this.textDate = textDate;
     }
 
-    @Override
-    public void setSelectedDateListenser(String selectedDate) {
-        Log.d("debug", "setSelectedDateListenser: "+selectedDate);
-    }
+
 }
