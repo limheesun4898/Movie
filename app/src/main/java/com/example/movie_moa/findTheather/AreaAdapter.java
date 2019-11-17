@@ -22,6 +22,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     String sWideareaCd;
     ArrayList<AreaTheatherItem> areaTheatherItems;
     String TAG;
+
     public static final String TAG_ONE = "oneFragment";
     public static final String TAG_TWO = "twoFragment";
     public static final String TAG_THREE = "threeFragment";
@@ -55,7 +56,6 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
         AreaTheatherItem item = areaTheatherItems.get(position);
 
         holder.tv_area.setText(item.getCdNm());
-
     }
 
     @Override

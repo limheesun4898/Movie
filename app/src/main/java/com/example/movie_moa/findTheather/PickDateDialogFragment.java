@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DatePickDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class PickDateDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     Calendar mCalendar = Calendar.getInstance(Locale.KOREA);
     Date date = new Date(mCalendar.getTimeInMillis());
@@ -34,15 +34,15 @@ public class DatePickDialogFragment extends DialogFragment implements DatePicker
     String textdateFormat = "MM월\ndd";
     SimpleDateFormat textdateFormatter = new SimpleDateFormat(textdateFormat);
 
-    String selectedDate, textDate, selectedTime;
+    String selectedDate, textDate;
 
     setListener listener;
 
     public interface setListener{
-        void setSelectedDateListenser(String selectedDate);
+        void setSelectedDateListenser(String selectedDate, String textDate);
     }
 
-    public DatePickDialogFragment(setListener listener) {
+    public PickDateDialogFragment(setListener listener) {
         this.listener = listener;
     }
 
@@ -81,16 +81,7 @@ public class DatePickDialogFragment extends DialogFragment implements DatePicker
         SimpleDateFormat minuteFormatter = new SimpleDateFormat(minuteFormat);
         final String minute = minuteFormatter.format(date);//현재 분 담기
 
-        listener.setSelectedDateListenser(selectedDate);
+        listener.setSelectedDateListenser(selectedDate, textDate);
     }
-
-    public String setSelectDate() {
-        return selectedDate;
-    }
-
-    public String setTextDate() {
-        return textDate;
-    }
-
 
 }

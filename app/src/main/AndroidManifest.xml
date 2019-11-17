@@ -13,10 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".findTheather.FindTheaterActivity"></activity>
-        <activity android:name=".movieticketing.MovieTicketingActivity">
-
-        </activity>
+        <activity android:name=".findTheather.PickMovieActivity"></activity>
+        <activity android:name=".findTheather.FindTheaterActivity" />
+        <activity android:name=".movieticketing.MovieTicketingActivity"></activity>
         <activity android:name=".activity.MoreActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

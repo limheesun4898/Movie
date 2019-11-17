@@ -53,7 +53,7 @@ public class MoreTab2Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.more2_recyclerview);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-        MoreAdapter adapter = new MoreAdapter(getActivity(), morelist2);
+        MoreAdapter adapter = new MoreAdapter(getActivity(), morelist2,"more2");
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -1,9 +1,7 @@
 package com.example.movie_moa.findTheather;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.findTheather.download.ThreeAreaListDownloader;
+import com.example.movie_moa.findTheather.Parser.ThreeAreaListParser;
 
 import java.util.ArrayList;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ThreeAreaFragment extends Fragment {
     String sWideareaCd, sBasareaCd;
@@ -57,7 +53,7 @@ public class ThreeAreaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.ThreefindTheather_reccyclerview);
         context = container.getContext();
 
-        ThreeAreaListDownloader downloader = new ThreeAreaListDownloader(context, sWideareaCd, sBasareaCd, ThreeAreaFragment.this);
+        ThreeAreaListParser downloader = new ThreeAreaListParser(context, sWideareaCd, sBasareaCd, ThreeAreaFragment.this);
         downloader.execute();
 
         return view;

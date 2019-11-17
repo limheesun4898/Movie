@@ -33,13 +33,8 @@ public class FindTheaterActivity extends AppCompatActivity {
         transaction.replace(R.id.findTheather_container, oneAreaFragment).commitAllowingStateLoss();
 
         ImageView btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
+        btn_back.setOnClickListener(v-> onBackPressed());
     }
 
 

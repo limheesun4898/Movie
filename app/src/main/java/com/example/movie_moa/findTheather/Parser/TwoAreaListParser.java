@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather.download;
+package com.example.movie_moa.findTheather.Parser;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import androidx.fragment.app.Fragment;
 
 import com.example.movie_moa.findTheather.AreaTheatherItem;
-import com.example.movie_moa.findTheather.ThreeAreaFragment;
+import com.example.movie_moa.findTheather.TwoAreaFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,24 +17,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<AreaTheatherItem>> {
+public class TwoAreaListParser extends AsyncTask<Void, Void, ArrayList<AreaTheatherItem>> {
     ArrayList<AreaTheatherItem> areaTheatherItems = new ArrayList<>();
     Context context;
-    String sWideareaCd, sBasareaCd;
+    String sWideareaCd;
     StringBuffer buffer;
     Fragment fragment;
 
-    public ThreeAreaListDownloader(Context context, String sWideareaCd,String sBasareaCd ,Fragment fragment) {
+    public TwoAreaListParser(Context context, String sWideareaCd, Fragment fragment) {
         this.context = context;
         this.sWideareaCd = sWideareaCd;
-        this.sBasareaCd = sBasareaCd;
         this.fragment = fragment;
     }
 
@@ -44,11 +42,11 @@ public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<Are
     protected void onPreExecute() {
         super.onPreExecute();
 
-//        //진행다일로그 시작
-//        progressDialog = new ProgressDialog(context);
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setMessage("잠시 기다려 주세요.");
-//        progressDialog.show();
+        //진행다일로그 시작
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("잠시 기다려 주세요.");
+        progressDialog.show();
 
     }
 
@@ -58,8 +56,8 @@ public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<Are
         HttpURLConnection urlConnection = null;
 
         try {
-            String body = "sWideareaCd=" + sWideareaCd + "&sBasareaCd=" + sBasareaCd;
-            URL url = new URL("http://www.kobis.or.kr/kobis/business/mast/thea/findTheaCdList.do");
+            String body = "sWideareaCd=" + sWideareaCd;
+            URL url = new URL("http://www.kobis.or.kr/kobis/business/mast/thea/findBasareaCdList.do");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoInput(true); //서버로부터 응답 메시지를 받는
@@ -85,7 +83,7 @@ public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<Are
                     buffer.append(line);
                 }
 
-                JSONArray jsonArray = new JSONObject(String.valueOf(buffer)).getJSONArray("theaCdList");
+                JSONArray jsonArray = new JSONObject(String.valueOf(buffer)).getJSONArray("basareaCdList");
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
@@ -93,7 +91,9 @@ public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<Are
                     cdNmValule = object.getString("cdNm");
                     areaTheatherItems.add(new AreaTheatherItem(cdValue, cdNmValule));
                 }
+
                 in.close();
+
 
             }
 
@@ -113,11 +113,10 @@ public class ThreeAreaListDownloader extends AsyncTask<Void, Void, ArrayList<Are
     @Override
     protected void onPostExecute(ArrayList<AreaTheatherItem> areaTheaterItems) {
 
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
 
-        ((ThreeAreaFragment)fragment).getTwoAreaListResult(areaTheaterItems);
+        ((TwoAreaFragment)fragment).getTwoAreaListResult(areaTheaterItems);
 
     }
-
 
 }

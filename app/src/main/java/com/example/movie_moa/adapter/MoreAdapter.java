@@ -2,19 +2,23 @@ package com.example.movie_moa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie_moa.R;
 import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.findTheather.PickMovieActivity;
 
 import java.util.ArrayList;
 
@@ -22,10 +26,25 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
 
     ArrayList<MainItem> list;
     Context context;
+    String TAG;
 
-    public MoreAdapter(Context context, ArrayList<MainItem> list) {
+    public MoreAdapter(Context context, ArrayList<MainItem> list, String TAG) {
         this.context = context;
         this.list = list;
+        this.TAG = TAG;
+    }
+
+    setFindMovieListener listener;
+
+    public MoreAdapter(Context context, ArrayList<MainItem> list, String TAG, setFindMovieListener listener) {
+        this.context = context;
+        this.list = list;
+        this.TAG = TAG;
+        this.listener = listener;
+    }
+
+    public interface setFindMovieListener{
+        void setFindMovieTitle(String title);
     }
 
     @NonNull
@@ -70,7 +89,8 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title, tv_preview, tv_bookingRate, tv_openingDay;
         ImageView img_poster;
-
+        Button btn_Ticketing;
+        ConstraintLayout layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
@@ -78,8 +98,28 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
             tv_bookingRate = itemView.findViewById(R.id.tv_bookingRate);
             tv_openingDay = itemView.findViewById(R.id.tv_openingDay);
             img_poster = itemView.findViewById(R.id.img_poster);
+            btn_Ticketing = itemView.findViewById(R.id.btn_Ticketing);
+
+            if (TAG.equals("more1")){
+
+            }else if (TAG.equals("more2")){
+                btn_Ticketing.setVisibility(View.GONE);
+
+            }else if(TAG.equals("pickMovie")){
+                layout = itemView.findViewById(R.id.layout);
+                layout.setOnClickListener((View v)->{
+                    int pos = getAdapterPosition();
+                    MainItem item = list.get(pos);
+                    Intent intent = new Intent();
+                    intent.putExtra("title", item.getTitle());
+
+                    listener.setFindMovieTitle(item.getTitle());
+
+                });
+            }
 
         }
+
     }
 
 }

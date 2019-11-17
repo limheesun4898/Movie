@@ -2,10 +2,12 @@ package com.example.movie_moa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.movie_moa.R;
 import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.movieticketing.MovieTicketingActivity;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     Context context;
     ArrayList<MainItem> list;
     int tab;
+    ViewHolder viewHolder;
 
     public MainRecyclerAdapter(Context context, ArrayList<MainItem> list, int tab) {
         this.context = context;
@@ -33,8 +37,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_recyclerview, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        if (tab == 1) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main1_recyclerview, parent, false);
+            viewHolder = new ViewHolder(view);
+        }else if(tab == 2){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main2_recyclerview, parent, false);
+            viewHolder = new ViewHolder(view);
+        }
+
         return viewHolder;
     }
 
@@ -45,8 +55,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         ((Activity) holder.itemView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
-        width = (int) (width/2.5);
-        int height = (int) (width*1.5);
+        width = (int) (width / 2.5);
+        int height = (int) (width * 1.5);
 
         holder.img_poster.getLayoutParams().width = width;
         holder.img_poster.getLayoutParams().height = height;
@@ -57,7 +67,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         MainItem item = list.get(position);
 
         holder.tv_title.setText(item.getTitle());
-        if(tab == 1){
+        if (tab == 1) {
             holder.tv_bookingRate.setText(item.getBookingRate());
         } else if (tab == 2) {
             holder.tv_bookingRate.setText(item.getOpeningDay());
@@ -75,6 +85,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title, tv_bookingRate;
         ImageView img_poster;
+        Button btn_movieTicket;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,16 +93,20 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             tv_bookingRate = itemView.findViewById(R.id.tv_bookingRate);
             img_poster = itemView.findViewById(R.id.img_poster);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+            if (tab == 1){
+                btn_movieTicket = itemView.findViewById(R.id.btn_movieticket);
+
+                btn_movieTicket.setOnClickListener((View v) -> {
                     int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        MainItem item = list.get(pos);
-                        Toast.makeText(context, item.getDetail_url(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                    MainItem item = list.get(pos);
+                    Intent intent = new Intent(context, MovieTicketingActivity.class);
+                    intent.putExtra("title", item.getTitle());
+                    intent.putParcelableArrayListExtra("movieList", list);
+                    context.startActivity(intent);
+                });
+            }
+
         }
     }
 }

@@ -10,26 +10,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.findTheather.DatePickDialogFragment;
+import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.findTheather.PickDateDialogFragment;
 import com.example.movie_moa.findTheather.FindTheaterActivity;
+import com.example.movie_moa.findTheather.PickMovieActivity;
 
-import org.w3c.dom.Text;
-
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class MovieTicketingActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView tv_theater;
+    TextView tv_theater, tv_date, tv_title;
 
-    String selectDate, textDate;
+    String Title, selectDate;
+
+    ArrayList<MainItem> movielist;
 
     public static final int FIND_THEATER = 1; // 영화관 요청
+    public static final int FIND_MOVIE = 2; // 영화 선택 요청
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_ticketing);
+
+        Intent intent = getIntent();
+        Title = intent.getStringExtra("title");
+        movielist = intent.getParcelableArrayListExtra("movieList");
 
         init();
 
@@ -37,14 +42,24 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
 
     public void init() {
         tv_theater = findViewById(R.id.tv_theater);
+        tv_date = findViewById(R.id.tv_date);
+        tv_title = findViewById(R.id.tv_title);
+
+        tv_title.setText(Title);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.layout_movie:
+            case R.id.btn_back:
+                onBackPressed();
+                break;
 
+            case R.id.layout_movie:
+                Intent intent1 = new Intent(MovieTicketingActivity.this, PickMovieActivity.class);
+                intent1.putParcelableArrayListExtra("movieList", movielist);
+                startActivityForResult(intent1, FIND_MOVIE);
                 break;
 
             case R.id.layout_theater:
@@ -53,30 +68,36 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
 
                 break;
             case R.id.layout_day:
-                // setDate();
-                DialogFragment newFragment = new DatePickDialogFragment(mDataPickListener);
+
+                DialogFragment newFragment = new PickDateDialogFragment(mDataPickListener);
                 newFragment.show(getSupportFragmentManager(), "timePicker");
 
-                DatePickDialogFragment fragment = new DatePickDialogFragment(mDataPickListener);
-                selectDate = fragment.setSelectDate();
-                textDate = fragment.setTextDate();
-
-                Log.d("debug", "onClick: "+selectDate + "d"+textDate);
                 break;
         }
+
     }
 
-    private DatePickDialogFragment.setListener mDataPickListener = new DatePickDialogFragment.setListener() {
+    //날짜 다이얼로그에서 선택한 날짜 가져오기
+    private PickDateDialogFragment.setListener mDataPickListener = new PickDateDialogFragment.setListener() {
         @Override
-        public void setSelectedDateListenser(String selectedDate) {
-            Log.d("MovieTicketingActivity", "setSelectedDateListenser: " + selectedDate);
+        public void setSelectedDateListenser(String selectedDate, String textDate) {
+            selectDate = selectedDate;
+            tv_date.setText(textDate);
+
         }
     };
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case FIND_MOVIE:
+                if (resultCode == RESULT_OK){
+                    String title = data.getStringExtra("title");
+                    tv_title.setText(title);
+                }
+                break;
             case FIND_THEATER:
                 if (resultCode == RESULT_OK) {
                     String cd = data.getStringExtra("cd");
@@ -88,14 +109,5 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         }
 
     }
-
-    public void setSelectDate(String selectDate) {
-        this.selectDate = selectDate;
-    }
-
-    public void setTextDate(String textDate) {
-        this.textDate = textDate;
-    }
-
 
 }

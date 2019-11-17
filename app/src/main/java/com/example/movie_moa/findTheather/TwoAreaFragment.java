@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.findTheather.download.TwoAreaListDownloader;
+import com.example.movie_moa.findTheather.Parser.TwoAreaListParser;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class TwoAreaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.TwofindTheather_reccyclerview);
         context = container.getContext();
 
-        TwoAreaListDownloader downloader = new TwoAreaListDownloader(context, sWideareaCd, TwoAreaFragment.this);
+        TwoAreaListParser downloader = new TwoAreaListParser(context, sWideareaCd, TwoAreaFragment.this);
         downloader.execute();
 
         return view;

@@ -54,14 +54,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setOnTabSelectedListener(this);
 
-        Button btn = findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MovieTicketingActivity.class));
 
-            }
-        });
     }
 
     //tablayout ontabselectedlistener
