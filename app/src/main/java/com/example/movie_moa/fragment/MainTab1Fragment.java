@@ -21,7 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movie_moa.R;
 import com.example.movie_moa.activity.MoreActivity;
 import com.example.movie_moa.adapter.MainRecyclerAdapter;
+import com.example.movie_moa.data.AreaTheatherItem;
 import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.findTheather.AreaAdapter;
+import com.example.movie_moa.parser.Tab1Parser;
 
 
 import org.jsoup.Jsoup;
@@ -33,9 +36,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainTab1Fragment extends Fragment {
-    ArrayList<MainItem> tab1list = new ArrayList<>();
     RecyclerView recyclerView;
-
+    private static final String TYPE_MAIN_TAB1 = "mainTab1";
 
     public MainTab1Fragment() {
         // Required empty public constructor
@@ -45,7 +47,14 @@ public class MainTab1Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new showMovie().execute();
+        Tab1Parser parser = new Tab1Parser(getActivity(), MainTab1Fragment.this, TYPE_MAIN_TAB1);
+        parser.execute();
+//        new showMovie().execute();
+    }
+
+    public void getParserList(ArrayList<MainItem> list) {
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter(getActivity(), list, 1);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -63,76 +72,6 @@ public class MainTab1Fragment extends Fragment {
         return view;
     }
 
-    public class showMovie extends AsyncTask<Void, Void, Void> {
-        //진행바표시
-        private ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            //진행다일로그 시작
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("잠시 기다려 주세요.");
-            progressDialog.show();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            try {
-                //예매순 데이터
-                Document doc1 = Jsoup.connect("https://movie.daum.net/premovie/released").get();
-                Elements mElementDataSize1 = doc1.select("ul[class=list_movie #movie]").select("li");
-                int count = 1;
-
-                for (Element element : mElementDataSize1) {
-
-                    int number = count++;
-
-                    String title = element.select("li div[class=info_tit] a").text();
-
-                    String preview = element.select("li div[class=info_tit] em").text();
-
-                    String description = element.select("span.info_state").text();
-                    int index1 = description.indexOf("・");
-                    String openingDay = description.substring(0, index1);
-                    String bookingRate = description.substring(index1 + 1);
-
-                    String poster_url = element.select("img").attr("src");
-                    int index2 = poster_url.indexOf("=");
-                    String result = poster_url.substring(index2 + 1);
-
-                    String detail_url = element.select("a").attr("href");
-                    detail_url = "https://movie.daum.net" + detail_url;
-
-                    tab1list.add(new MainItem(number, title, preview, bookingRate, openingDay, result, detail_url));
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            MainRecyclerAdapter adapter = new MainRecyclerAdapter(getActivity(), tab1list, 1);
-            recyclerView.setAdapter(adapter);
-
-            progressDialog.dismiss();
-        }
-    }
-
-    public ArrayList<MainItem> getMovieList() {
-        return tab1list;
-    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather.Parser;
+package com.example.movie_moa.parser;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.movie_moa.findTheather.AreaTheatherItem;
+import com.example.movie_moa.data.AreaTheatherItem;
 import com.example.movie_moa.findTheather.TwoAreaFragment;
 
 import org.json.JSONArray;

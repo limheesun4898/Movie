@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.findTheather.Parser.ThreeAreaListParser;
+import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.parser.ThreeAreaListParser;
 
 import java.util.ArrayList;
 
@@ -53,8 +54,8 @@ public class ThreeAreaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.ThreefindTheather_reccyclerview);
         context = container.getContext();
 
-        ThreeAreaListParser downloader = new ThreeAreaListParser(context, sWideareaCd, sBasareaCd, ThreeAreaFragment.this);
-        downloader.execute();
+        ThreeAreaListParser parser = new ThreeAreaListParser(context, sWideareaCd, sBasareaCd, ThreeAreaFragment.this);
+        parser.execute();
 
         return view;
     }

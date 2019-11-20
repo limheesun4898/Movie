@@ -11,37 +11,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.adapter.MainRecyclerAdapter;
 import com.example.movie_moa.adapter.MoreAdapter;
 import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.parser.Tab2Parser;
 
 import java.util.ArrayList;
 
 
 public class MoreTab2Fragment extends Fragment {
-    private ArrayList<MainItem> morelist2 = new ArrayList<>();
-    public static final String LIST = "list";
+    private static final String TYPE_MORE_TAB2 = "moreTab2";
     RecyclerView recyclerView;
 
     public MoreTab2Fragment() {
 
     }
 
-    public static MoreTab2Fragment newInstance(ArrayList<MainItem> list) {
-
-        Bundle args = new Bundle();
-        MoreTab2Fragment fragment = new MoreTab2Fragment();
-        args.putParcelableArrayList(LIST, list);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Tab2Parser parser = new Tab2Parser(getActivity(), MoreTab2Fragment.this, TYPE_MORE_TAB2);
+        parser.execute();
+    }
 
-        if (getArguments() != null) {
-            morelist2 = getArguments().getParcelableArrayList(LIST);
-        }
+    public void getParserList(ArrayList<MainItem> list) {
+
+        MoreAdapter adapter = new MoreAdapter(getActivity(), list,"more2");
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -53,8 +49,8 @@ public class MoreTab2Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.more2_recyclerview);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-        MoreAdapter adapter = new MoreAdapter(getActivity(), morelist2,"more2");
-        recyclerView.setAdapter(adapter);
+
+
 
         return view;
     }

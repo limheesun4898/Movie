@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.data.AreaTheatherItem;
 
 import java.util.ArrayList;
 

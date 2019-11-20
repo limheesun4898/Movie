@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather.Parser;
+package com.example.movie_moa.parser;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.movie_moa.findTheather.AreaTheatherItem;
+import com.example.movie_moa.data.AreaTheatherItem;
 import com.example.movie_moa.findTheather.ThreeAreaFragment;
 
 import org.json.JSONArray;
@@ -45,10 +45,10 @@ public class ThreeAreaListParser extends AsyncTask<Void, Void, ArrayList<AreaThe
         super.onPreExecute();
 
 //        //진행다일로그 시작
-//        progressDialog = new ProgressDialog(context);
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setMessage("잠시 기다려 주세요.");
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("잠시 기다려 주세요.");
+        progressDialog.show();
 
     }
 
@@ -113,7 +113,7 @@ public class ThreeAreaListParser extends AsyncTask<Void, Void, ArrayList<AreaThe
     @Override
     protected void onPostExecute(ArrayList<AreaTheatherItem> areaTheaterItems) {
 
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
 
         ((ThreeAreaFragment)fragment).getTwoAreaListResult(areaTheaterItems);
 

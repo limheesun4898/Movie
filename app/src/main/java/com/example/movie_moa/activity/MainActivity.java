@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         Intent intent = new Intent(MainActivity.this, MoreActivity.class);
         if (page_number == 0) {
             intent.putExtra("tab", fragmentTag1);
-            intent.putParcelableArrayListExtra("movies1", mainTab1Fragment.getMovieList());
+//            intent.putParcelableArrayListExtra("movies1", mainTab1Fragment.getMovieList());
         } else if (page_number == 1) {
             intent.putExtra("tab", fragmentTag2);
-            intent.putParcelableArrayListExtra("movies2", mainTab2Fragment.getMovieList());
+//            intent.putParcelableArrayListExtra("movies2", mainTab2Fragment.getMovieList());
         }
 
         startActivity(intent);

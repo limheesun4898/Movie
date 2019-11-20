@@ -38,6 +38,7 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
 
         init();
 
+
     }
 
     public void init() {
@@ -80,20 +81,18 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
     //날짜 다이얼로그에서 선택한 날짜 가져오기
     private PickDateDialogFragment.setListener mDataPickListener = new PickDateDialogFragment.setListener() {
         @Override
-        public void setSelectedDateListenser(String selectedDate, String textDate) {
+        public void setSelectedDateListener(String selectedDate, String textDate) {
             selectDate = selectedDate;
             tv_date.setText(textDate);
-
         }
     };
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case FIND_MOVIE:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     String title = data.getStringExtra("title");
                     tv_title.setText(title);
                 }

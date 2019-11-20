@@ -39,7 +39,7 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
     setListener listener;
 
     public interface setListener{
-        void setSelectedDateListenser(String selectedDate, String textDate);
+        void setSelectedDateListener(String selectedDate, String textDate);
     }
 
     public PickDateDialogFragment(setListener listener) {
@@ -81,7 +81,7 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
         SimpleDateFormat minuteFormatter = new SimpleDateFormat(minuteFormat);
         final String minute = minuteFormatter.format(date);//현재 분 담기
 
-        listener.setSelectedDateListenser(selectedDate, textDate);
+        listener.setSelectedDateListener(selectedDate, textDate);
     }
 
 }

@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -27,10 +28,11 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, View.OnClickListener {
-    private TabLayout moreTablayout;
+public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
+    private TabLayout moreTablayout;
     private MoreTab1Fragment moreTab1Fragment;
     private MoreTab2Fragment moreTab2Fragment;
 
@@ -43,18 +45,22 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
     Intent intent;
     String tabPosition;
 
+    FragmentManager fm1;
+    FragmentManager fm2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
 
         init();
+
     }
 
     public void init() {
 
         ImageButton btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(this);
+        btn_back.setOnClickListener(v -> onBackPressed());
 
         moreTab1Fragment = new MoreTab1Fragment();
         moreTab2Fragment = new MoreTab2Fragment();
@@ -67,44 +73,35 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         intent = getIntent();
         tabPosition = intent.getExtras().getString("tab");
-
-        moreList1 = intent.getParcelableArrayListExtra("movies1");
-        moreList2 = intent.getParcelableArrayListExtra("movies2");
+//
+//        moreList1 = intent.getParcelableArrayListExtra("movies1");
+//        moreList2 = intent.getParcelableArrayListExtra("movies2");
 
         if (tabPosition.equals(fragmentTag1)) {
 
-            transaction.replace(R.id.more_fragment_container, MoreTab1Fragment.newInstance(moreList1), fragmentTag1).commitAllowingStateLoss();
-
+            transaction.replace(R.id.more_fragment_container, moreTab1Fragment, fragmentTag1).commitAllowingStateLoss();
 
         } else if (tabPosition.equals(fragmentTag2)) {
             int index = 1;
             TabLayout.Tab tab1 = moreTablayout.getTabAt(index);
             tab1.select();
 
-//            transaction.replace(R.id.more_fragment_container, MoreTab2Fragment.newInstance(moreList2), fragmentTag2).commitAllowingStateLoss();
+            transaction.replace(R.id.more_fragment_container, moreTab2Fragment, fragmentTag2).commitAllowingStateLoss();
+
         }
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_back:
-                onBackPressed();
-                break;
-        }
-    }
-
-    public Fragment getItem(int position) {
-        switch (position) {
-            case 0: // Fragment # 0 - This will show FirstFragment
-                return MoreTab1Fragment.newInstance(moreList1);
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return MoreTab2Fragment.newInstance(moreList2);
-            default:
-                return null;
-        }
-    }
+//    public Fragment getItem(int position) {
+//        switch (position) {
+//            case 0: // Fragment # 0 - This will show FirstFragment
+//                return MoreTab1Fragment.newInstance(moreList1);
+//            case 1: // Fragment # 0 - This will show FirstFragment different title
+//                return MoreTab2Fragment.newInstance(moreList2);
+//            default:
+//                return null;
+//        }
+//    }
 
     //tablayout ontabselectedlistener
     @Override
@@ -138,6 +135,7 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 if (fragmentManager.findFragmentByTag(fragmentTag2) != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag2)).commit();
                 }
+
                 break;
 
             case 1:

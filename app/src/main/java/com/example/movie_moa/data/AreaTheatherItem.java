@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather;
+package com.example.movie_moa.data;
 
 public class AreaTheatherItem {
     public String cd;

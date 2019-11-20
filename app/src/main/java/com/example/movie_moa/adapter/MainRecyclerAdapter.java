@@ -22,11 +22,13 @@ import com.example.movie_moa.movieticketing.MovieTicketingActivity;
 
 import java.util.ArrayList;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
+public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     ArrayList<MainItem> list;
     int tab;
-    ViewHolder viewHolder;
+
+    private static final int TYPE_TAB = -1;
+    private static final int TYPE_ADD = 0;
 
     public MainRecyclerAdapter(Context context, ArrayList<MainItem> list, int tab) {
         this.context = context;
@@ -36,65 +38,99 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (tab == 1) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main1_recyclerview, parent, false);
-            viewHolder = new ViewHolder(view);
-        }else if(tab == 2){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main2_recyclerview, parent, false);
-            viewHolder = new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = null;
+        this.context = parent.getContext();
+
+        if (viewType == TYPE_TAB) {
+            if (tab == 1) {
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main1_recyclerview, parent, false);
+                return new TabViewHolder(view);
+
+            } else if (tab == 2) {
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main2_recyclerview, parent, false);
+                return new TabViewHolder(view);
+            }
+        } else if (viewType == TYPE_ADD) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_add, parent, false);
+            return new AddViewHolder(view);
+
         }
 
-        return viewHolder;
+
+        return null;
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+        // 영화 정보 띄우
+        if (holder instanceof TabViewHolder) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
 
-        ((Activity) holder.itemView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-        width = (int) (width / 2.5);
-        int height = (int) (width * 1.5);
+            ((Activity) holder.itemView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+            width = (int) (width / 2.5);
+            int height = (int) (width * 1.5);
 
-        holder.img_poster.getLayoutParams().width = width;
-        holder.img_poster.getLayoutParams().height = height;
-        holder.itemView.getLayoutParams().width = width;
+            TabViewHolder tabViewHolder = (TabViewHolder) holder;
 
-        holder.itemView.requestLayout(); // 변경 사항 적용
+            tabViewHolder.img_poster.getLayoutParams().width = width;
+            tabViewHolder.img_poster.getLayoutParams().height = height;
+            tabViewHolder.itemView.getLayoutParams().width = width;
 
-        MainItem item = list.get(position);
+            tabViewHolder.itemView.requestLayout(); // 변경 사항 적용
 
-        holder.tv_title.setText(item.getTitle());
-        if (tab == 1) {
-            holder.tv_bookingRate.setText(item.getBookingRate());
-        } else if (tab == 2) {
-            holder.tv_bookingRate.setText(item.getOpeningDay());
+            MainItem item = list.get(position);
+
+            Glide.with(context).load(item.getPoster_url())
+                    .into(tabViewHolder.img_poster);
+
+            tabViewHolder.tv_title.setText(item.getTitle());
+            if (tab == 1) {
+                tabViewHolder.tv_bookingRate.setText(item.getBookingRate());
+            } else if (tab == 2) {
+                tabViewHolder.tv_bookingRate.setText(item.getOpeningDay());
+            }
+
+            // 더보기 버튼 나타내기
+        } else if (holder instanceof AddViewHolder) {
+
+            AddViewHolder addViewHolder = (AddViewHolder) holder;
+
+            addViewHolder.btn.setOnClickListener(v -> Toast.makeText(context, "클릭", Toast.LENGTH_SHORT).show());
+
         }
-        Glide.with(context).load(item.getPoster_url())
-                .into(holder.img_poster);
 
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return 8;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 7) {
+            return TYPE_ADD;
+        }
+        return TYPE_TAB;
+    }
+
+    public class TabViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title, tv_bookingRate;
         ImageView img_poster;
         Button btn_movieTicket;
 
-        public ViewHolder(@NonNull View itemView) {
+        public TabViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_bookingRate = itemView.findViewById(R.id.tv_bookingRate);
             img_poster = itemView.findViewById(R.id.img_poster);
 
 
-            if (tab == 1){
+            if (tab == 1) {
                 btn_movieTicket = itemView.findViewById(R.id.btn_movieticket);
 
                 btn_movieTicket.setOnClickListener((View v) -> {
@@ -109,4 +145,16 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         }
     }
+
+    public class AddViewHolder extends RecyclerView.ViewHolder {
+        Button btn;
+
+        public AddViewHolder(@NonNull View itemView) {
+            super(itemView);
+            btn = itemView.findViewById(R.id.btn);
+
+        }
+    }
+
+
 }

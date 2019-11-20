@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.findTheather.Parser.TwoAreaListParser;
+import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.parser.TwoAreaListParser;
 
 import java.util.ArrayList;
 
