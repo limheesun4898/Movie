@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather;
+package com.example.movie_moa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
 import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.activity.FindTheaterActivity;
+import com.example.movie_moa.fragment.ThreeAreaFragment;
+import com.example.movie_moa.fragment.TwoAreaFragment;
 
 import java.util.ArrayList;
 

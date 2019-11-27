@@ -8,29 +8,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie_moa.R;
+import com.example.movie_moa.activity.MoreActivity;
 import com.example.movie_moa.data.MainItem;
-import com.example.movie_moa.movieticketing.MovieTicketingActivity;
+import com.example.movie_moa.activity.MovieTicketingActivity;
 
 import java.util.ArrayList;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     ArrayList<MainItem> list;
     int tab;
-
     private static final int TYPE_TAB = -1;
     private static final int TYPE_ADD = 0;
 
-    public MainRecyclerAdapter(Context context, ArrayList<MainItem> list, int tab) {
+    private static final String fragmentTag1 = "Tab1";
+    private static final String fragmentTag2 = "Tab2";
+
+    public MainAdapter(Context context, ArrayList<MainItem> list, int tab) {
         this.context = context;
         this.list = list;
         this.tab = tab;
@@ -43,14 +46,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = parent.getContext();
 
         if (viewType == TYPE_TAB) {
-            if (tab == 1) {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main1_recyclerview, parent, false);
-                return new TabViewHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main1_recyclerview, parent, false);
+            return new TabViewHolder(view);
 
-            } else if (tab == 2) {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main2_recyclerview, parent, false);
-                return new TabViewHolder(view);
-            }
         } else if (viewType == TYPE_ADD) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_add, parent, false);
             return new AddViewHolder(view);
@@ -90,16 +88,34 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tabViewHolder.tv_title.setText(item.getTitle());
             if (tab == 1) {
                 tabViewHolder.tv_bookingRate.setText(item.getBookingRate());
+
+                tabViewHolder.btn_movieTicket.setOnClickListener((View v) -> {
+                    Intent intent = new Intent(context, MovieTicketingActivity.class);
+                    intent.putExtra("title", item.getTitle());
+                    context.startActivity(intent);
+                });
             } else if (tab == 2) {
                 tabViewHolder.tv_bookingRate.setText(item.getOpeningDay());
+                tabViewHolder.btn_movieTicket.setVisibility(View.INVISIBLE);
             }
+
 
             // 더보기 버튼 나타내기
         } else if (holder instanceof AddViewHolder) {
 
             AddViewHolder addViewHolder = (AddViewHolder) holder;
 
-            addViewHolder.btn.setOnClickListener(v -> Toast.makeText(context, "클릭", Toast.LENGTH_SHORT).show());
+            addViewHolder.btn.setOnClickListener((View v) -> {
+
+                Intent intent = new Intent(context, MoreActivity.class);
+
+                if (tab == 1) {
+                    intent.putExtra("tab", fragmentTag1);
+                } else if (tab == 2) {
+                    intent.putExtra("tab", fragmentTag2);
+                }
+                context.startActivity(intent);
+            });
 
         }
 
@@ -128,26 +144,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_bookingRate = itemView.findViewById(R.id.tv_bookingRate);
             img_poster = itemView.findViewById(R.id.img_poster);
-
-
-            if (tab == 1) {
-                btn_movieTicket = itemView.findViewById(R.id.btn_movieticket);
-
-                btn_movieTicket.setOnClickListener((View v) -> {
-                    int pos = getAdapterPosition();
-                    MainItem item = list.get(pos);
-                    Intent intent = new Intent(context, MovieTicketingActivity.class);
-                    intent.putExtra("title", item.getTitle());
-                    intent.putParcelableArrayListExtra("movieList", list);
-                    context.startActivity(intent);
-                });
-            }
+            btn_movieTicket = itemView.findViewById(R.id.btn_movieticket);
 
         }
     }
 
     public class AddViewHolder extends RecyclerView.ViewHolder {
-        Button btn;
+        ImageButton btn;
 
         public AddViewHolder(@NonNull View itemView) {
             super(itemView);

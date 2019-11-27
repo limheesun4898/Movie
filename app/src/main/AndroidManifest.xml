@@ -13,11 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".findTheather.PickMovieActivity"></activity>
-        <activity android:name=".findTheather.FindTheaterActivity" />
-        <activity android:name=".movieticketing.MovieTicketingActivity"></activity>
-        <activity android:name=".activity.MoreActivity" />
-        <activity android:name=".activity.MainActivity">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
+
+        <activity android:name=".activity.PickMovieActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.FindTheaterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MovieTicketingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.MoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

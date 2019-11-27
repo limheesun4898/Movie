@@ -1,13 +1,6 @@
 package com.example.movie_moa.fragment;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Point;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.activity.MoreActivity;
-import com.example.movie_moa.adapter.MainRecyclerAdapter;
-import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.adapter.MainAdapter;
 import com.example.movie_moa.data.MainItem;
-import com.example.movie_moa.findTheather.AreaAdapter;
 import com.example.movie_moa.parser.Tab1Parser;
 
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainTab1Fragment extends Fragment {
@@ -53,7 +37,7 @@ public class MainTab1Fragment extends Fragment {
     }
 
     public void getParserList(ArrayList<MainItem> list) {
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter(getActivity(), list, 1);
+        MainAdapter adapter = new MainAdapter(getActivity(), list, 1);
         recyclerView.setAdapter(adapter);
     }
 

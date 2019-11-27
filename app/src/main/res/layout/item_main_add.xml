@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:orientation="horizontal" android:layout_width="100dp"
+    android:layout_height="match_parent"
+    android:gravity="center">
 
-    <Button
+    <ImageButton
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="더보기"
-        android:layout_gravity="center"/>
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:background="@drawable/addbackground"/>
 
 </LinearLayout>

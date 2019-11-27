@@ -2,9 +2,14 @@
     <string name="app_name">Movie-MOA</string>
     <string name="main_toolbar_title">MOVIE-MOA</string>
 
+    //배너 광고
+    <string name="admob_app_id">ca-app-pub-5433281809465704~8692762488</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5433281809465704/7955724870</string>
+    <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
+    //전면 광고
+    <string name="all">ca-app-pub-5433281809465704/5987897464</string>
+
     <string name="main_tab1">예매</string>
     <string name="main_tab2">상영 예정</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

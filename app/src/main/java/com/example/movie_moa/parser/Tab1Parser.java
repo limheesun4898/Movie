@@ -1,5 +1,6 @@
 package com.example.movie_moa.parser;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import androidx.fragment.app.Fragment;
 
 import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.activity.PickMovieActivity;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MoreTab1Fragment;
 
@@ -24,28 +26,35 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
     Context context;
     Fragment fragment;
     String TYPE;
+    Activity activity;
     private static final String TYPE_MAIN_TAB1 = "mainTab1";
     private static final String TYPE_MORE_TAB1 = "moreTab1";
     private static final String TYPE_MORE = "more";
 
-    public Tab1Parser(Context context, Fragment fragment, String TAPE){
+    private ProgressDialog progressDialog;
+
+    public Tab1Parser(Context context, Fragment fragment, String TAPE) {
         this.context = context;
         this.fragment = fragment;
         this.TYPE = TAPE;
     }
 
-    private ProgressDialog progressDialog;
+    public Tab1Parser(Context context, Activity activity, String TAPE) {
+        this.context = context;
+        this.activity = activity;
+        this.TYPE = TAPE;
+    }
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
 
-//        //진행다일로그 시작
+        //진행다일로그 시작
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("잠시 기다려 주세요.");
         progressDialog.show();
 
+        super.onPreExecute();
     }
 
     @Override
@@ -55,8 +64,9 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
             Document doc1 = Jsoup.connect("https://movie.daum.net/premovie/released").get();
             Elements mElementDataSize1 = doc1.select("ul[class=list_movie #movie]").select("li");
 
-            if (TYPE.equals(TYPE_MAIN_TAB1)){
-                for(int i = 0; i < 9; i++){
+            //탭1에서는 8개까지만 보이고, 제목, 포스터, 예매율만 보임
+            if (TYPE.equals(TYPE_MAIN_TAB1)) {
+                for (int i = 0; i < 9; i++) {
                     String title = mElementDataSize1.get(i).select("li div[class=info_tit] a").text();
 
                     String description = mElementDataSize1.get(i).select("span.info_state").text();
@@ -69,7 +79,8 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
 
                     tab1list.add(new MainItem(title, bookingRate, posterResult));
                 }
-            }else if(TYPE.equals(TYPE_MORE_TAB1) ||TYPE.equals(TYPE_MORE)){
+                //탭2에서는 20개까지 보이고, 더 자세한 내용을 크롤링
+            } else if (TYPE.equals(TYPE_MORE_TAB1) || TYPE.equals(TYPE_MORE)) {
                 int count = 1;
 
                 for (Element element : mElementDataSize1) {
@@ -106,13 +117,12 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
     protected void onPostExecute(ArrayList<MainItem> list) {
         progressDialog.dismiss();
 
-        if(TYPE.equals(TYPE_MAIN_TAB1)){
-            ((MainTab1Fragment)fragment).getParserList(list);
-        }else if (TYPE.equals(TYPE_MORE_TAB1)){
-            ((MoreTab1Fragment)fragment).getParserList(list);
-        }
-        else if(TYPE.equals(TYPE_MORE)){
-
+        if (TYPE.equals(TYPE_MAIN_TAB1)) {
+            ((MainTab1Fragment) fragment).getParserList(list);
+        } else if (TYPE.equals(TYPE_MORE_TAB1)) {
+            ((MoreTab1Fragment) fragment).getParserList(list);
+        } else if (TYPE.equals(TYPE_MORE)) {
+            ((PickMovieActivity) activity).getParserList(list);
         }
 
     }

@@ -2,23 +2,20 @@ package com.example.movie_moa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.data.MainItem;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MainTab2Fragment;
-import com.example.movie_moa.movieticketing.MovieTicketingActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
@@ -33,10 +30,22 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     private int page_number = 0;
 
+    private AdView madView;
+    private InterstitialAd interstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+
+        madView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        madView.loadAd(adRequest);
+
 
         init();
 
@@ -53,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setOnTabSelectedListener(this);
-
 
     }
 
@@ -112,10 +120,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         Intent intent = new Intent(MainActivity.this, MoreActivity.class);
         if (page_number == 0) {
             intent.putExtra("tab", fragmentTag1);
-//            intent.putParcelableArrayListExtra("movies1", mainTab1Fragment.getMovieList());
         } else if (page_number == 1) {
             intent.putExtra("tab", fragmentTag2);
-//            intent.putParcelableArrayListExtra("movies2", mainTab2Fragment.getMovieList());
         }
 
         startActivity(intent);

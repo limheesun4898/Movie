@@ -1,4 +1,4 @@
-package com.example.movie_moa.findTheather;
+package com.example.movie_moa.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,32 +12,41 @@ import android.widget.ImageButton;
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.MoreAdapter;
 import com.example.movie_moa.data.MainItem;
-import com.example.movie_moa.movieticketing.MovieTicketingActivity;
+import com.example.movie_moa.parser.Tab1Parser;
 
 import java.util.ArrayList;
 
 public class PickMovieActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    Context context;
+    Context context = this;
 
-    ArrayList<MainItem> moiveList;
+    private static final String TYPE_MORE = "more";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_movie);
 
-        Intent intent = getIntent();
-        moiveList = intent.getParcelableArrayListExtra("movieList");
+//        Intent intent = getIntent();
+//        moiveList = intent.getParcelableArrayListExtra("movieList");
+
+        Tab1Parser parser = new Tab1Parser(context,PickMovieActivity.this, TYPE_MORE);
+        parser.execute();
 
         recyclerView = findViewById(R.id.pick_movie_Recyclerview);
         LinearLayoutManager manager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(manager);
-        MoreAdapter adapter = new MoreAdapter(getApplicationContext(),moiveList,"pickMovie", listener);
-        recyclerView.setAdapter(adapter);
 
         ImageButton btn_close = findViewById(R.id.btn_close);
         btn_close.setOnClickListener(v -> onBackPressed());
+
+    }
+
+    //영화 선택 리스트 받아오기
+    public void getParserList(ArrayList<MainItem> list) {
+        MoreAdapter adapter = new MoreAdapter(context,list,"pickMovie", listener);
+        recyclerView.setAdapter(adapter);
 
     }
 

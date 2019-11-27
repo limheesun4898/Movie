@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import androidx.fragment.app.Fragment;
 
 import com.example.movie_moa.data.AreaTheatherItem;
-import com.example.movie_moa.findTheather.TwoAreaFragment;
+import com.example.movie_moa.fragment.TwoAreaFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;

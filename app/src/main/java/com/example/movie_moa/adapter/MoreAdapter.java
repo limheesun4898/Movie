@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.movie_moa.R;
 import com.example.movie_moa.data.MainItem;
-import com.example.movie_moa.findTheather.PickMovieActivity;
+import com.example.movie_moa.activity.MovieTicketingActivity;
 
 import java.util.ArrayList;
 
@@ -101,13 +101,18 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
             btn_Ticketing = itemView.findViewById(R.id.btn_Ticketing);
 
             if (TAG.equals("more1")){
-
+                btn_Ticketing.setOnClickListener((View v) -> {
+                    int pos = getAdapterPosition();
+                    MainItem item = list.get(pos);
+                    Intent intent = new Intent(context, MovieTicketingActivity.class);
+                    intent.putExtra("title", item.getTitle());
+                    context.startActivity(intent);
+                });
             }else if (TAG.equals("more2")){
                 btn_Ticketing.setVisibility(View.GONE);
 
             }else if(TAG.equals("pickMovie")){
-                layout = itemView.findViewById(R.id.layout);
-                layout.setOnClickListener((View v)->{
+                btn_Ticketing.setOnClickListener((View v)->{
                     int pos = getAdapterPosition();
                     MainItem item = list.get(pos);
                     Intent intent = new Intent();

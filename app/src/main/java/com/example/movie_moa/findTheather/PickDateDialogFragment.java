@@ -2,19 +2,12 @@ package com.example.movie_moa.findTheather;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
-
-import com.example.movie_moa.movieticketing.MovieTicketingActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

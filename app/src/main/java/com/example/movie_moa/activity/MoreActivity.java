@@ -36,17 +36,11 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private MoreTab1Fragment moreTab1Fragment;
     private MoreTab2Fragment moreTab2Fragment;
 
-    ArrayList<MainItem> moreList1 = new ArrayList<>();
-    ArrayList<MainItem> moreList2 = new ArrayList<>();
-
     private static final String fragmentTag1 = "Tab1";
     private static final String fragmentTag2 = "Tab2";
 
     Intent intent;
     String tabPosition;
-
-    FragmentManager fm1;
-    FragmentManager fm2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +67,6 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         intent = getIntent();
         tabPosition = intent.getExtras().getString("tab");
-//
-//        moreList1 = intent.getParcelableArrayListExtra("movies1");
-//        moreList2 = intent.getParcelableArrayListExtra("movies2");
 
         if (tabPosition.equals(fragmentTag1)) {
 
@@ -91,17 +82,6 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
 
     }
-
-//    public Fragment getItem(int position) {
-//        switch (position) {
-//            case 0: // Fragment # 0 - This will show FirstFragment
-//                return MoreTab1Fragment.newInstance(moreList1);
-//            case 1: // Fragment # 0 - This will show FirstFragment different title
-//                return MoreTab2Fragment.newInstance(moreList2);
-//            default:
-//                return null;
-//        }
-//    }
 
     //tablayout ontabselectedlistener
     @Override
@@ -142,7 +122,7 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 if (fragmentManager.findFragmentByTag(fragmentTag2) != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag(fragmentTag2)).commit();
                 } else
-                    fragmentManager.beginTransaction().add(R.id.more_fragment_container, moreTab1Fragment, fragmentTag2).commit();
+                    fragmentManager.beginTransaction().add(R.id.more_fragment_container, moreTab2Fragment, fragmentTag2).commit();
 
                 if (fragmentManager.findFragmentByTag(fragmentTag1) != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(fragmentTag1)).commit();

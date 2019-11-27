@@ -1,7 +1,6 @@
-package com.example.movie_moa.findTheather;
+package com.example.movie_moa.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.movie_moa.R;
+import com.example.movie_moa.fragment.OneAreaFragment;
 
 public class FindTheaterActivity extends AppCompatActivity {
     private OneAreaFragment oneAreaFragment;
