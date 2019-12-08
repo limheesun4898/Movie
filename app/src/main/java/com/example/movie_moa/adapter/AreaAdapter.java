@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.dataModel.AreaTheatherItem;
 import com.example.movie_moa.activity.FindTheaterActivity;
 import com.example.movie_moa.fragment.ThreeAreaFragment;
 import com.example.movie_moa.fragment.TwoAreaFragment;
@@ -50,8 +50,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_onearea_recyclerview, parent, false);
-        AreaAdapter.ViewHolder viewHolder = new AreaAdapter.ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
 
     }
 

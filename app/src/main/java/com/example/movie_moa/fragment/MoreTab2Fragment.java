@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.MoreAdapter;
-import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.dataModel.MainItem;
 import com.example.movie_moa.parser.Tab2Parser;
 
 import java.util.ArrayList;

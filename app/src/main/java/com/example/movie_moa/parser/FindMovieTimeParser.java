@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.movie_moa.data.MovieTimeItem;
+import com.example.movie_moa.dataModel.MovieTimeItem;
 import com.example.movie_moa.activity.MovieTicketingActivity;
+import com.example.movie_moa.dataModel.TimeItem;
+import com.example.movie_moa.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,16 +25,21 @@ import java.util.ArrayList;
 
 public class FindMovieTimeParser extends AsyncTask<Void, Void, ArrayList<MovieTimeItem>> {
     ArrayList<MovieTimeItem> movieTimeItems = new ArrayList<>();
+    ArrayList<TimeItem> item = new ArrayList<>();
 
+    String theaterNm, theaCd, showDt, movieTitle, todayTime;
     Context context;
 
-    String theaCd, showDt;
     StringBuffer buffer;
 
-    public FindMovieTimeParser(String theaCd, String showDt, Context context) {
+
+    public FindMovieTimeParser(Context context, String theaCd, String showDt, String theaterNm, String movieTitle, String todayTime) {
+        this.context = context;
         this.theaCd = theaCd;
         this.showDt = showDt;
-        this.context = context;
+        this.theaterNm = theaterNm;
+        this.movieTitle = movieTitle;
+        this.todayTime = todayTime;
     }
 
     @Override
@@ -72,11 +79,24 @@ public class FindMovieTimeParser extends AsyncTask<Void, Void, ArrayList<MovieTi
 
                 for (int i = 0; i < schedule.length(); i++) {
                     JSONObject object = schedule.getJSONObject(i);
-                    scrnNm = object.getString("scrnNm");
+
+                    // 영화 제목
                     movieNm = object.getString("movieNm");
-                    showTm = object.getString("showTm");
-                    movieTimeItems.add(new MovieTimeItem(scrnNm, movieNm, showTm));
+
+                    if (movieNm.contains(movieTitle)) {
+                        //스크린
+                        scrnNm = object.getString("scrnNm");
+                        //시간표
+                        String[] timetable = object.getString("showTm").split(",");
+
+                        showTm = Util.setshowTimeSort(timetable, todayTime);
+
+                        item.add(new TimeItem(scrnNm, movieNm, showTm));
+                    } else ;
+
                 }
+                movieTimeItems.add(new MovieTimeItem(theaterNm, item));
+
                 in.close();
 
             }
@@ -95,6 +115,6 @@ public class FindMovieTimeParser extends AsyncTask<Void, Void, ArrayList<MovieTi
 
     @Override
     protected void onPostExecute(ArrayList<MovieTimeItem> movieTimeItems) {
-        ((MovieTicketingActivity)context).getParserList(movieTimeItems);
+        ((MovieTicketingActivity) context).getParserList(movieTimeItems);
     }
 }

@@ -1,13 +1,11 @@
-package com.example.movie_moa.data;
+package com.example.movie_moa.dataModel;
 
-public class MovieTimeItem {
+public class TimeItem {
     String scrnNm;
     String movieNm;
-
     String showTm;
 
-
-    public MovieTimeItem(String scrnNm, String movieNm, String showTm) {
+    public TimeItem(String scrnNm, String movieNm, String showTm) {
         this.scrnNm = scrnNm;
         this.movieNm = movieNm;
         this.showTm = showTm;
@@ -37,13 +35,4 @@ public class MovieTimeItem {
         this.showTm = showTm;
     }
 
-
-    @Override
-    public String toString() {
-        return "MovieTimeItem{" +
-                "scrnNm='" + scrnNm + '\'' +
-                ", movieNm='" + movieNm + '\'' +
-                ", showTm='" + showTm + '\'' +
-                '}';
-    }
 }

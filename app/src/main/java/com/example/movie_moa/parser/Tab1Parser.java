@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.dataModel.MainItem;
 import com.example.movie_moa.activity.PickMovieActivity;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MoreTab1Fragment;

@@ -1,4 +1,4 @@
-package com.example.movie_moa.data;
+package com.example.movie_moa.dataModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;

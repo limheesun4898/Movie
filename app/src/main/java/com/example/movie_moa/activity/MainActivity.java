@@ -1,9 +1,13 @@
 package com.example.movie_moa.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,9 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.movie_moa.R;
 import com.example.movie_moa.fragment.MainTab1Fragment;
 import com.example.movie_moa.fragment.MainTab2Fragment;
+import com.example.movie_moa.util.Util;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 
@@ -31,23 +36,65 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private int page_number = 0;
 
     private AdView madView;
-    private InterstitialAd interstitialAd;
+    Context context = this;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if( !Util.isNetworkConnected(context) ){
+            Util.AlertDailog(context);
+        }else{
+            init();
+        }
+
         MobileAds.initialize(this, getString(R.string.admob_app_id));
 
         madView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         madView.loadAd(adRequest);
 
+        madView.setAdListener(new AdListener() {
 
-        init();
+            @Override
+            public void onAdLoaded() {
+
+                // 광고가 문제 없이 로드시 출력됩니다.
+                Log.d("@@@", "onAdLoaded");
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // 광고 로드에 문제가 있을시 출력됩니다.
+                Log.d("@@@", "onAdFailedToLoad " + errorCode);
+            }
+
+            @Override
+            public void onAdOpened() {
+
+            }
+
+            @Override
+            public void onAdClicked() {
+
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+
+            }
+
+        });
 
     }
 

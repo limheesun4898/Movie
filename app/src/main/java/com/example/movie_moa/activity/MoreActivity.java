@@ -1,32 +1,19 @@
 package com.example.movie_moa.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.data.MainItem;
-import com.example.movie_moa.fragment.MainTab1Fragment;
-import com.example.movie_moa.fragment.MainTab2Fragment;
 import com.example.movie_moa.fragment.MoreTab1Fragment;
 import com.example.movie_moa.fragment.MoreTab2Fragment;
-import com.google.android.material.tabs.TabItem;
+import com.example.movie_moa.util.Util;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     private FragmentManager fragmentManager;
@@ -42,12 +29,18 @@ public class MoreActivity extends AppCompatActivity implements TabLayout.OnTabSe
     Intent intent;
     String tabPosition;
 
+    Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
 
-        init();
+        if( !Util.isNetworkConnected(context) ){
+            Util.AlertDailog(context);
+        }else{
+            init();
+        }
 
     }
 

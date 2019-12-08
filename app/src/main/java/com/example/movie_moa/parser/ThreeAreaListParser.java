@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.movie_moa.data.AreaTheatherItem;
+import com.example.movie_moa.dataModel.AreaTheatherItem;
 import com.example.movie_moa.fragment.ThreeAreaFragment;
 
 import org.json.JSONArray;

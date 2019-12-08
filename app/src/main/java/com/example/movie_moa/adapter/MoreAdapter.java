@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie_moa.R;
-import com.example.movie_moa.data.MainItem;
+import com.example.movie_moa.dataModel.MainItem;
 import com.example.movie_moa.activity.MovieTicketingActivity;
 
 import java.util.ArrayList;

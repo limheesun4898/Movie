@@ -1,8 +1,9 @@
-package com.example.movie_moa.findTheather;
+package com.example.movie_moa.dialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,9 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
     String selectdateFormat = "yyyyMMdd";
     SimpleDateFormat selectdateFormatter = new SimpleDateFormat(selectdateFormat);
 
+    //현재 날짜
+    String todayDate = selectdateFormatter.format(mCalendar.getTime());
+
     //텍스트용 날짜
     String textdateFormat = "MM월\ndd";
     SimpleDateFormat textdateFormatter = new SimpleDateFormat(textdateFormat);
@@ -31,8 +35,8 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
 
     setListener listener;
 
-    public interface setListener{
-        void setSelectedDateListener(String selectedDate, String textDate);
+    public interface setListener {
+        void setSelectedDateListener(String selectedDate, String textDate, String time);
     }
 
     public PickDateDialogFragment(setListener listener) {
@@ -66,15 +70,20 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
         selectedDate = selectdateFormatter.format(mCalendar.getTimeInMillis());
         textDate = textdateFormatter.format(mCalendar.getTimeInMillis());
 
-        String hourFormat = "HH";
-        SimpleDateFormat hourFormatter = new SimpleDateFormat(hourFormat);
-        final String hour = hourFormatter.format(date);//현재 시 담기
+        //현재 시,분
+        String timeFormat = "HHmm";
+        SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
+        String time = timeFormatter.format(date);
 
-        String minuteFormat = "mm";
-        SimpleDateFormat minuteFormatter = new SimpleDateFormat(minuteFormat);
-        final String minute = minuteFormatter.format(date);//현재 분 담기
+        //오늘 날짜와 선택 날짜가 같으면 -> 선택 시간 이후의 시간표만 보여줌
+        if (todayDate.equals(selectedDate)) {
+            listener.setSelectedDateListener(selectedDate, textDate, time);
+        } // 다르면 -> 선택 날짜
+        else {
+            time = "0";
+            listener.setSelectedDateListener(selectedDate, textDate, time);
+        }
 
-        listener.setSelectedDateListener(selectedDate, textDate);
     }
 
 }

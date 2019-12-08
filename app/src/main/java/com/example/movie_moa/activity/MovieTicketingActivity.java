@@ -9,20 +9,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
-import com.example.movie_moa.data.MovieTimeItem;
-import com.example.movie_moa.findTheather.PickDateDialogFragment;
+import com.example.movie_moa.adapter.MovieTimeResultAdapter;
+import com.example.movie_moa.dataModel.MovieTimeItem;
+import com.example.movie_moa.dialogFragment.PickDateDialogFragment;
 import com.example.movie_moa.parser.FindMovieTimeParser;
+import com.example.movie_moa.util.Util;
 
 import java.util.ArrayList;
 
 public class MovieTicketingActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_theater, tv_date, tv_title;
 
-    String Title, showDt;
-    String theaCd;
+    String movieTitle, showDt, theaCd, theaterNm, todayTime;
 
     public static final int FIND_THEATER = 1; // 영화관 요청
     public static final int FIND_MOVIE = 2; // 영화 선택 요청
@@ -36,8 +38,13 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_movie_ticketing);
 
         Intent intent = getIntent();
-        Title = intent.getStringExtra("title");
-        init();
+        movieTitle = intent.getStringExtra("title");
+
+        if( !Util.isNetworkConnected(context) ){
+            Util.AlertDailog(context);
+        }else{
+            init();
+        }
 
     }
 
@@ -47,8 +54,10 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         tv_title = findViewById(R.id.tv_title);
 
         recyclerView = findViewById(R.id.result_recyclerview);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(manager);
 
-        tv_title.setText(Title);
+        tv_title.setText(movieTitle);
 
     }
 
@@ -79,7 +88,7 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.btn_result:
-                FindMovieTimeParser parser = new FindMovieTimeParser(theaCd, showDt, context);
+                FindMovieTimeParser parser = new FindMovieTimeParser(context,theaCd, showDt, theaterNm, movieTitle, todayTime);
                 parser.execute();
 
                 break;
@@ -90,16 +99,18 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
     //날짜 다이얼로그에서 선택한 날짜 가져오기
     private PickDateDialogFragment.setListener mDataPickListener = new PickDateDialogFragment.setListener() {
         @Override
-        public void setSelectedDateListener(String selectedDate, String textDate) {
+        public void setSelectedDateListener(String selectedDate, String textDate, String time) {
             showDt = selectedDate;
             tv_date.setText(textDate);
+            todayTime = time;
         }
     };
 
     //파싱 최종 리스트
     public void getParserList(ArrayList<MovieTimeItem> list) {
-        Log.d("debug", "getParserList: "+list.toString());
-       // recyclerView.setAdapter(adapter);
+        Log.d("debug", "getParserList: " + list.toString());
+        MovieTimeResultAdapter adapter = new MovieTimeResultAdapter(context, list);
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -109,15 +120,15 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         switch (requestCode) {
             case FIND_MOVIE:
                 if (resultCode == RESULT_OK) {
-                    String title = data.getStringExtra("title");
-                    tv_title.setText(title);
+                    movieTitle = data.getStringExtra("title");
+                    tv_title.setText(movieTitle);
                 }
                 break;
             case FIND_THEATER:
                 if (resultCode == RESULT_OK) {
                     theaCd = data.getStringExtra("cd");
-                    String name = data.getStringExtra("name");
-                    tv_theater.setText(name);
+                    theaterNm = data.getStringExtra("name");
+                    tv_theater.setText(theaterNm);
 
                 }
                 break;
