@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.MovieTimeResultAdapter;
+import com.example.movie_moa.dataModel.AreaTheatherItem;
 import com.example.movie_moa.dataModel.MovieTimeItem;
 import com.example.movie_moa.dialogFragment.PickDateDialogFragment;
 import com.example.movie_moa.parser.FindMovieTimeParser;
@@ -24,13 +25,14 @@ import java.util.ArrayList;
 public class MovieTicketingActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_theater, tv_date, tv_title;
 
-    String movieTitle, showDt, theaCd, theaterNm, todayTime;
+    String movieTitle, showDt, todayTime; // 영화 제목, 선택 날짜, 선택날짜가 오늘이면 선택 시간 이후
 
     public static final int FIND_THEATER = 1; // 영화관 요청
     public static final int FIND_MOVIE = 2; // 영화 선택 요청
 
     RecyclerView recyclerView;
     Context context = this;
+    ArrayList<AreaTheatherItem> theaterCheckList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,9 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         Intent intent = getIntent();
         movieTitle = intent.getStringExtra("title");
 
-        if( !Util.isNetworkConnected(context) ){
+        if (!Util.isNetworkConnected(context)) {
             Util.AlertDailog(context);
-        }else{
+        } else {
             init();
         }
 
@@ -88,7 +90,7 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.btn_result:
-                FindMovieTimeParser parser = new FindMovieTimeParser(context,theaCd, showDt, theaterNm, movieTitle, todayTime);
+                FindMovieTimeParser parser = new FindMovieTimeParser(context, movieTitle, showDt, todayTime, theaterCheckList);
                 parser.execute();
 
                 break;
@@ -111,6 +113,13 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         Log.d("debug", "getParserList: " + list.toString());
         MovieTimeResultAdapter adapter = new MovieTimeResultAdapter(context, list);
         recyclerView.setAdapter(adapter);
+
+//        for (int i = 0 ; i < list.size(); i++){
+//            Log.d("debug", "getParserList: "+list.get(i).getTheater());
+//            for (int j = 0; j < list.get(i).getInfo().size(); j++){
+//                Log.d("debug", "getParserList: "+list.get(i).getInfo().get(i).getShowTm());
+//            }
+//        }
     }
 
 
@@ -126,10 +135,9 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
                 break;
             case FIND_THEATER:
                 if (resultCode == RESULT_OK) {
-                    theaCd = data.getStringExtra("cd");
-                    theaterNm = data.getStringExtra("name");
-                    tv_theater.setText(theaterNm);
+                    theaterCheckList = data.getParcelableArrayListExtra("checklist");
 
+                    tv_theater.setText("dd");
                 }
                 break;
 

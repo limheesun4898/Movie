@@ -91,7 +91,7 @@ public class ThreeAreaListParser extends AsyncTask<Void, Void, ArrayList<AreaThe
                     JSONObject object = jsonArray.getJSONObject(i);
                     cdValue = object.getString("cd");
                     cdNmValule = object.getString("cdNm");
-                    areaTheatherItems.add(new AreaTheatherItem(cdValue, cdNmValule));
+                    areaTheatherItems.add(new AreaTheatherItem(cdValue, cdNmValule, false));
                 }
                 in.close();
 

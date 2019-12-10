@@ -5,6 +5,15 @@ public class TimeItem {
     String movieNm;
     String showTm;
 
+    @Override
+    public String toString() {
+        return "TimeItem{" +
+                "scrnNm='" + scrnNm + '\'' +
+                ", movieNm='" + movieNm + '\'' +
+                ", showTm='" + showTm + '\'' +
+                '}';
+    }
+
     public TimeItem(String scrnNm, String movieNm, String showTm) {
         this.scrnNm = scrnNm;
         this.movieNm = movieNm;

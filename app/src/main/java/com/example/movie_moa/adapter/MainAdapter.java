@@ -62,7 +62,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        // 영화 정보 띄우
+        // 영화 정보 띄우기
         if (holder instanceof TabViewHolder) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
 

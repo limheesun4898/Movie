@@ -13,5 +13,4 @@
         android:layout_height="wrap_content"
         tools:text="서울"
         android:textSize="@dimen/textSize_20"/>
-
 </LinearLayout>

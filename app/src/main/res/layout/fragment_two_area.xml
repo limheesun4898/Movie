@@ -9,5 +9,5 @@
       android:id="@+id/TwofindTheather_reccyclerview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:listitem="@layout/item_onearea_recyclerview"/>
+      tools:listitem="@layout/item_area_recyclerview"/>
 </LinearLayout>

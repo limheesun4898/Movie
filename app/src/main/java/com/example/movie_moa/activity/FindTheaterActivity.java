@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,21 +19,25 @@ public class FindTheaterActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     Context context = this;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_theather);
 
-        if( !Util.isNetworkConnected(context) ){
+        if (!Util.isNetworkConnected(context)) {
             Util.AlertDailog(context);
-        }else{
+        } else {
             init();
         }
 
     }
 
     public void init() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+
         oneAreaFragment = new OneAreaFragment();
 
         fragmentManager = getSupportFragmentManager();
@@ -41,8 +46,8 @@ public class FindTheaterActivity extends AppCompatActivity {
         transaction.replace(R.id.findTheather_container, oneAreaFragment).commitAllowingStateLoss();
 
         ImageView btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> onBackPressed());
 
-        btn_back.setOnClickListener(v-> onBackPressed());
     }
 
 

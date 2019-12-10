@@ -1,11 +1,19 @@
 package com.example.movie_moa.dataModel;
 
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieTimeItem {
 
     String theater;
+
+    @Override
+    public String toString() {
+        return "MovieTimeItem{" +
+                "theater='" + theater + '\'' +
+                ", info=" + info +
+                '}';
+    }
 
     ArrayList<TimeItem> info;
 
@@ -26,7 +34,7 @@ public class MovieTimeItem {
         this.theater = theater;
     }
 
-    public List<TimeItem> getInfo() {
+    public ArrayList<TimeItem> getInfo() {
         return info;
     }
 
@@ -38,48 +46,4 @@ public class MovieTimeItem {
         return info;
     }
 
-//    String scrnNm;
-//    String movieNm;
-//    String showTm;
-//
-//
-//    public MovieTimeItem(String scrnNm, String movieNm, String showTm) {
-//        this.scrnNm = scrnNm;
-//        this.movieNm = movieNm;
-//        this.showTm = showTm;
-//    }
-//
-//    public String getScrnNm() {
-//        return scrnNm;
-//    }
-//
-//    public void setScrnNm(String scrnNm) {
-//        this.scrnNm = scrnNm;
-//    }
-//
-//    public String getMovieNm() {
-//        return movieNm;
-//    }
-//
-//    public void setMovieNm(String movieNm) {
-//        this.movieNm = movieNm;
-//    }
-//
-//    public String getShowTm() {
-//        return showTm;
-//    }
-//
-//    public void setShowTm(String showTm) {
-//        this.showTm = showTm;
-//    }
-//
-//
-//    @Override
-//    public String toString() {
-//        return "MovieTimeItem{" +
-//                "scrnNm='" + scrnNm + '\'' +
-//                ", movieNm='" + movieNm + '\'' +
-//                ", showTm='" + showTm + '\'' +
-//                '}';
-//    }
 }
