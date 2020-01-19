@@ -136,7 +136,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class TabViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title, tv_bookingRate;
         ImageView img_poster;
-        Button btn_movieTicket;
+        TextView btn_movieTicket;
 
         public TabViewHolder(@NonNull View itemView) {
             super(itemView);

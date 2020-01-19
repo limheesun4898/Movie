@@ -1,13 +1,17 @@
 package com.example.movie_moa.parser;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.movie_moa.dataModel.AreaTheatherItem;
 import com.example.movie_moa.dataModel.MovieTimeItem;
 import com.example.movie_moa.activity.MovieTicketingActivity;
 import com.example.movie_moa.dataModel.TimeItem;
+import com.example.movie_moa.fragment.ResultShowTimeFragment;
 import com.example.movie_moa.util.Util;
 
 import org.json.JSONArray;
@@ -35,14 +39,32 @@ public class FindMovieTimeParser extends AsyncTask<Void, Void, ArrayList<MovieTi
     Context context;
 
     StringBuffer buffer;
+    Fragment fragment;
 
-    public FindMovieTimeParser(Context context, String movieTitle, String showDt, String todayTime, ArrayList<AreaTheatherItem> theaterCheckList) {
+    private ProgressDialog progressDialog;
+
+
+    public FindMovieTimeParser(Context context, String movieTitle, String showDt, String todayTime, ArrayList<AreaTheatherItem> theaterCheckList, Fragment fragment) {
         this.context = context;
         this.movieTitle = movieTitle;
         this.showDt = showDt;
         this.todayTime = todayTime;
         this.theaterCheckList = theaterCheckList;
+        this.fragment = fragment;
     }
+
+    @Override
+    protected void onPreExecute() {
+
+        //진행다일로그 시작
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("잠시 기다려 주세요.");
+        progressDialog.show();
+
+        super.onPreExecute();
+    }
+
 
     @Override
     protected ArrayList<MovieTimeItem> doInBackground(Void... voids) {
@@ -127,6 +149,13 @@ public class FindMovieTimeParser extends AsyncTask<Void, Void, ArrayList<MovieTi
 
     @Override
     protected void onPostExecute(ArrayList<MovieTimeItem> movieTimeItems) {
-        ((MovieTicketingActivity) context).getParserList(movieTimeItems);
+        progressDialog.dismiss();
+
+//        ((MovieTicketingActivity) context).getParserList(movieTimeItems);
+
+        ((ResultShowTimeFragment)fragment).getParserList(movieTimeItems);
+
+
     }
+
 }

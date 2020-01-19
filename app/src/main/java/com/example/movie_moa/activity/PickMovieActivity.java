@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.MoreAdapter;
@@ -40,7 +41,7 @@ public class PickMovieActivity extends AppCompatActivity {
         }
 
 
-        ImageButton btn_close = findViewById(R.id.btn_close);
+        ImageView btn_close = findViewById(R.id.btn_close);
         btn_close.setOnClickListener(v -> onBackPressed());
 
     }

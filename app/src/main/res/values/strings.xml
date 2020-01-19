@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Movie-MOA</string>
-    <string name="main_toolbar_title">MOVIE-MOA</string>
+    <string name="app_name">영화시간</string>
+    <string name="main_toolbar_title">MOVIE</string>
 
     //배너 광고
     <string name="admob_app_id">ca-app-pub-5433281809465704~8692762488</string>
@@ -11,5 +11,8 @@
 
     <string name="main_tab1">예매</string>
     <string name="main_tab2">상영 예정</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

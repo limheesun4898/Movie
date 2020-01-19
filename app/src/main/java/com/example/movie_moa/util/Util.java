@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Util {
 
 
+    //네트워크 확인
     public static boolean isNetworkConnected(Context context) {
         boolean isConnected = false;
 

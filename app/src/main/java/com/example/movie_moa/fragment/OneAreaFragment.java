@@ -1,20 +1,17 @@
 package com.example.movie_moa.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.movie_moa.R;
 import com.example.movie_moa.adapter.AreaAdapter;
 import com.example.movie_moa.dataModel.AreaTheatherItem;
-import com.example.movie_moa.util.Util;
 
 import java.util.ArrayList;
 
@@ -40,7 +37,6 @@ public class OneAreaFragment extends Fragment {
             add(new AreaTheatherItem("0105015", "인천"));
             add(new AreaTheatherItem("0105016", "광주"));
             add(new AreaTheatherItem("0105017", "세종"));
-
         }
     };
 

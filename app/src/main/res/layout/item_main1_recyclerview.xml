@@ -30,7 +30,8 @@
         app:layout_constraintLeft_toLeftOf="@id/img_poster"
         app:layout_constraintTop_toBottomOf="@+id/img_poster"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="나쁜 녀석들 : 더 무비" />
+        tools:text="나쁜 녀석들 : 더 무비"
+        android:textColor="@color/text_black"/>
 
     <TextView
         android:id="@+id/tv_bookingRate"
@@ -41,9 +42,10 @@
         android:textSize="@dimen/textSize_12"
         app:layout_constraintLeft_toLeftOf="@id/img_poster"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="19.09.11개봉" />
+        tools:text="19.09.11개봉"
+        android:textColor="@color/text_black"/>
 
-    <Button
+    <TextView
         android:id="@+id/btn_movieticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,6 +53,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bookingRate"
         android:text="시간표"
-        android:textSize="@dimen/textSize_12"/>
+        android:textSize="@dimen/textSize_12"
+        android:textColor="@color/text_black"
+        android:background="@drawable/schedulebackground"
+        android:padding="6dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

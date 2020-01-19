@@ -23,7 +23,7 @@ public class FindTheaterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_theather);
+        setContentView(R.layout.activity_find_theater);
 
         if (!Util.isNetworkConnected(context)) {
             Util.AlertDailog(context);

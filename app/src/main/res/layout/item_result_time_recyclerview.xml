@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="10dp">
+    android:layout_margin="16dp">
 
     <TextView
         android:id="@+id/tv_scrn"
@@ -16,7 +14,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="01관"
-        android:textSize="@dimen/textSize_16"/>
+        android:textSize="@dimen/textSize_16"
+        android:textColor="@color/text_black"/>
 
     <View
         android:id="@+id/line"
@@ -35,7 +34,9 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="겨울왕국2"
         android:textSize="@dimen/textSize_16"
-        android:layout_marginLeft="10dp"/>
+        android:ellipsize="end"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/text_black"/>
 
     <TextView
         android:id="@+id/tv_showTm"
@@ -45,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/line"
         tools:text="10:30 | 11:40"
         android:textSize="@dimen/textSize_16"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

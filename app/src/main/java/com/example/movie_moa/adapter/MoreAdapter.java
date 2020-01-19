@@ -89,7 +89,7 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title, tv_preview, tv_bookingRate, tv_openingDay;
         ImageView img_poster;
-        Button btn_Ticketing;
+        TextView btn_Ticketing;
         ConstraintLayout layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

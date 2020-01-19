@@ -28,7 +28,7 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
     String todayDate = selectdateFormatter.format(mCalendar.getTime());
 
     //텍스트용 날짜
-    String textdateFormat = "MM월\ndd";
+    String textdateFormat = "MM월\ndd일";
     SimpleDateFormat textdateFormatter = new SimpleDateFormat(textdateFormat);
 
     String selectedDate, textDate;
