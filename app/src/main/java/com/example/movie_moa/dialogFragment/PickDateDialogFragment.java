@@ -57,7 +57,7 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
         DatePicker mDatePicker = datePickerDialog.getDatePicker();
         mDatePicker.setMinDate(mCalendar.getTimeInMillis());
         Calendar after3days = Calendar.getInstance(Locale.KOREA);
-        after3days.add(Calendar.DATE, 3);
+        after3days.add(Calendar.DATE, 2);
         mDatePicker.setMaxDate(after3days.getTimeInMillis());
 
         return datePickerDialog;

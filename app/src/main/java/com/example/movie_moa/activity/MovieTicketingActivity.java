@@ -82,10 +82,6 @@ public class MovieTicketingActivity extends AppCompatActivity implements View.On
         tv_date = findViewById(R.id.tv_date);
         tv_title = findViewById(R.id.tv_title);
 
-//      recyclerView = findViewById(R.id.result_recyclerview);
-//        LinearLayoutManager manager = new LinearLayoutManager(context);
-//        recyclerView.setLayoutManager(manager);
-
         tv_title.setText(movieTitle);
         tv_date.setText(text_showDt);
 

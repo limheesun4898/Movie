@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie_moa.R;
@@ -48,9 +49,9 @@ public class OneAreaFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.OnefindTheather_reccyclerview);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         AreaAdapter areaAdapter = new AreaAdapter(getActivity(), areaTheatherItems, TAG_FRAGMENT);
         recyclerView.setAdapter(areaAdapter);

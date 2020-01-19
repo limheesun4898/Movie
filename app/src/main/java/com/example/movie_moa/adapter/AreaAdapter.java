@@ -1,6 +1,7 @@
 package com.example.movie_moa.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,6 +106,7 @@ public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     checkViewHolder.tv_checkArea.setCheckMarkDrawable(null);
                     checkViewHolder.tv_checkArea.setChecked(false);
+                    checkViewHolder.tv_checkArea.setTextColor(Color.GRAY);
 
                     item.setSelected(false);
 
@@ -114,6 +116,7 @@ public class AreaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     checkViewHolder.tv_checkArea.setCheckMarkDrawable(R.drawable.ic_check_black_24dp);
                     checkViewHolder.tv_checkArea.setChecked(true);
+                    checkViewHolder.tv_checkArea.setTextColor(Color.BLACK);
 
                     item.setSelected(true);
 

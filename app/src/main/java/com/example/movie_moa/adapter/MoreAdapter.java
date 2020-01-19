@@ -43,7 +43,7 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-    public interface setFindMovieListener{
+    public interface setFindMovieListener {
         void setFindMovieTitle(String title);
     }
 
@@ -72,12 +72,14 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
 
         MainItem item = list.get(position);
 
-        holder.tv_title.setText(item.getNumber()+". "+item.getTitle());
+        holder.tv_title.setText(item.getNumber() + ". " + item.getTitle());
         holder.tv_preview.setText(item.getPreview());
         holder.tv_openingDay.setText(item.getOpeningDay());
         holder.tv_bookingRate.setText(item.getBookingRate());
 
-        Glide.with(context).load(item.getPoster_url())
+        Glide.with(context)
+                .load(item.getPoster_url())
+                .override(600, 400)
                 .into(holder.img_poster);
     }
 
@@ -91,6 +93,7 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
         ImageView img_poster;
         TextView btn_Ticketing;
         ConstraintLayout layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
@@ -100,7 +103,7 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
             img_poster = itemView.findViewById(R.id.img_poster);
             btn_Ticketing = itemView.findViewById(R.id.btn_Ticketing);
 
-            if (TAG.equals("more1")){
+            if (TAG.equals("more1")) {
                 btn_Ticketing.setOnClickListener((View v) -> {
                     int pos = getAdapterPosition();
                     MainItem item = list.get(pos);
@@ -108,11 +111,11 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.ViewHolder> {
                     intent.putExtra("title", item.getTitle());
                     context.startActivity(intent);
                 });
-            }else if (TAG.equals("more2")){
+            } else if (TAG.equals("more2")) {
                 btn_Ticketing.setVisibility(View.GONE);
 
-            }else if(TAG.equals("pickMovie")){
-                btn_Ticketing.setOnClickListener((View v)->{
+            } else if (TAG.equals("pickMovie")) {
+                btn_Ticketing.setOnClickListener((View v) -> {
                     int pos = getAdapterPosition();
                     MainItem item = list.get(pos);
                     Intent intent = new Intent();

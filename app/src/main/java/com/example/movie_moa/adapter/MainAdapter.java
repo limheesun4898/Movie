@@ -7,7 +7,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,7 +80,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MainItem item = list.get(position);
 
-            Glide.with(context).load(item.getPoster_url())
+            Glide.with(context)
+                    .load(item.getPoster_url())
+                    .override(600,400)
                     .into(tabViewHolder.img_poster);
 
             tabViewHolder.tv_title.setText(item.getTitle());
