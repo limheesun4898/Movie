@@ -57,4 +57,7 @@ dependencies {
     //애드몹(광고)
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
 
+    //skeleton
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+
 }

@@ -16,7 +16,6 @@ import com.heesun.movie_moa.adapter.MainAdapter;
 import com.heesun.movie_moa.dataModel.MainItem;
 import com.heesun.movie_moa.parser.Tab1Parser;
 
-
 import java.util.ArrayList;
 
 public class MainTab1Fragment extends Fragment {
@@ -55,7 +54,5 @@ public class MainTab1Fragment extends Fragment {
 
         return view;
     }
-
-
 
 }
