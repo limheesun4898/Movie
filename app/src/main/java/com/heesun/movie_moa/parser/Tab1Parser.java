@@ -1,14 +1,15 @@
 package com.heesun.movie_moa.parser;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.heesun.movie_moa.dataModel.MainItem;
 import com.heesun.movie_moa.activity.PickMovieActivity;
+import com.heesun.movie_moa.dataModel.MainItem;
 import com.heesun.movie_moa.fragment.MainTab1Fragment;
 import com.heesun.movie_moa.fragment.MoreTab1Fragment;
 
@@ -26,7 +27,7 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
     Context context;
     Fragment fragment;
     String TYPE;
-    Activity activity;
+    AppCompatActivity activity;
     private static final String TYPE_MAIN_TAB1 = "mainTab1";
     private static final String TYPE_MORE_TAB1 = "moreTab1";
     private static final String TYPE_MORE = "more";
@@ -39,7 +40,7 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
         this.TYPE = TAPE;
     }
 
-    public Tab1Parser(Context context, Activity activity, String TAPE) {
+    public Tab1Parser(Context context, AppCompatActivity activity, String TAPE) {
         this.context = context;
         this.activity = activity;
         this.TYPE = TAPE;
@@ -49,10 +50,10 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
     protected void onPreExecute() {
 
         //진행다일로그 시작
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("잠시 기다려 주세요.");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setMessage("잠시 기다려 주세요.");
+//        progressDialog.show();
 
         super.onPreExecute();
     }
@@ -62,7 +63,8 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
         try {
             //예매순 데이터
             Document doc1 = Jsoup.connect("https://movie.daum.net/premovie/released").get();
-            Elements mElementDataSize1 = doc1.select("ul[class=list_movie #movie]").select("li");
+            Elements mElementDataSize1 = doc1.select("ul[class=list_movie]").select("li");
+            Log.d("debug", "doInBackground: " + mElementDataSize1);
 
             //탭1에서는 8개까지만 보이고, 제목, 포스터, 예매율만 보임
             if (TYPE.equals(TYPE_MAIN_TAB1)) {
@@ -107,7 +109,7 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
                 }
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return tab1list;
@@ -115,7 +117,7 @@ public class Tab1Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
 
     @Override
     protected void onPostExecute(ArrayList<MainItem> list) {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
 
         if (TYPE.equals(TYPE_MAIN_TAB1)) {
             ((MainTab1Fragment) fragment).getParserList(list);

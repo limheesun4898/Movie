@@ -18,33 +18,17 @@ import java.util.ArrayList;
 public class OneAreaFragment extends Fragment {
     public static final String TAG_FRAGMENT = "oneFragment";
     RecyclerView recyclerView;
-    ArrayList<AreaTheatherItem> areaTheatherItems = new ArrayList<AreaTheatherItem>() {
-        {
-            add(new AreaTheatherItem("0105001", "서울"));
-            add(new AreaTheatherItem("0105002", "경기"));
-            add(new AreaTheatherItem("0105003", "강원"));
-            add(new AreaTheatherItem("0105004", "충북"));
-            add(new AreaTheatherItem("0105005", "충남"));
-            add(new AreaTheatherItem("0105006", "경북"));
-            add(new AreaTheatherItem("0105007", "경남"));
-            add(new AreaTheatherItem("0105008", "전북"));
-            add(new AreaTheatherItem("0105009", "전남"));
-            add(new AreaTheatherItem("0105010", "제주"));
-            add(new AreaTheatherItem("0105011", "부산"));
-            add(new AreaTheatherItem("0105012", "대구"));
-            add(new AreaTheatherItem("0105013", "대전"));
-            add(new AreaTheatherItem("0105014", "울산"));
-            add(new AreaTheatherItem("0105015", "인천"));
-            add(new AreaTheatherItem("0105016", "광주"));
-            add(new AreaTheatherItem("0105017", "세종"));
-        }
-    };
+
+    ArrayList<AreaTheatherItem> areaTheatherItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_one_area, container, false);
+
+        Bundle bundle = this.getArguments();
+        areaTheatherItems = bundle.getParcelableArrayList("area");
 
         recyclerView = view.findViewById(R.id.OnefindTheather_reccyclerview);
 

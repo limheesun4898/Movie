@@ -55,7 +55,7 @@ public class Tab2Parser extends AsyncTask<Void, Void, ArrayList<MainItem>> {
         try {
             //개봉예정 데이터
             Document doc2 = Jsoup.connect("https://movie.daum.net/premovie/scheduled").get();
-            Elements mElementDataSize1 = doc2.select("ul[class=list_movie #movie]").select("li");
+            Elements mElementDataSize1 = doc2.select("ul[class=list_movie]").select("li");
 
             if (TYPE.equals(TYPE_MAIN_TAB2)) {
                 for (int i = 0; i < 9; i++) {
