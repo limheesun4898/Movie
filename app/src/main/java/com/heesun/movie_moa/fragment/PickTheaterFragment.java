@@ -15,8 +15,6 @@ import com.heesun.movie_moa.R;
 
 public class PickTheaterFragment extends Fragment {
 
-    //git test
-    //test
     Context context = getActivity();
 
     public PickTheaterFragment() {
